@@ -10,24 +10,22 @@ public class RagdollActivator : MonoBehaviour
 
     private Rigidbody[] _rigidbodies;
     private CharacterJoint[] _joints;
-    private Collider[] _colliders;
 
     void Awake()
     {
         _rigidbodies = _ragdollRoot.GetComponentsInChildren<Rigidbody>();
         _joints = _ragdollRoot.GetComponentsInChildren<CharacterJoint>();
-        _colliders = _ragdollRoot.GetComponentsInChildren<Collider>();
 
         if (_startRagdoll) EnableRagdoll();
         else EnableAnimator();
 
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.L)) EnableAnimator();
-    //    if (Input.GetKeyDown(KeyCode.K)) EnableRagdoll();
-    //}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L)) EnableAnimator();
+        if (Input.GetKeyDown(KeyCode.K)) EnableRagdoll();
+    }
 
     public void EnableRagdoll() 
     {

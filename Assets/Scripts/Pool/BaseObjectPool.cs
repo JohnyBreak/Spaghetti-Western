@@ -57,4 +57,12 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolabl
         obj.transform.SetParent(transform);
         obj.gameObject.SetActive(false);
     }
+
+    protected void OnDestroy() 
+    {
+        foreach (var obj in _pooledObjects)
+        {
+            GameObject.Destroy(obj);
+        }
+    }
 }

@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using UnityEngine;
 
-public class PlayerLocomotion : MonoBehaviour
+public class PlayerLocomotion : UnitAnimation
 {
     [SerializeField] private float _smoothBlend = 0.1f;
     [SerializeField, Min(0.01f)] private float _aimWeight = 1f;
-    [SerializeField]  private Animator _animator;
-    private Transform _cameraTransform;
+
     //private Vector2 _input;
     private PlayerInput _input;
     private int _upperBoddyLayerIndex;
@@ -26,7 +25,6 @@ public class PlayerLocomotion : MonoBehaviour
     void Awake()
     {
         _upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
-        _cameraTransform = Camera.main.transform;
         _input = GetComponent<PlayerInput>();
         _input.RMBEvent += OnAim;
         _input.ShiftEvent += OnSprint;
@@ -100,20 +98,5 @@ public class PlayerLocomotion : MonoBehaviour
                 _animator.SetFloat(_inputYHash, (_isSprinting) ? 1 : 0.5f, _smoothBlend, Time.deltaTime);
             }
         }
-    }
-
-    private int CalcVector()
-    {
-        int d;
-        var camera = _cameraTransform.forward;
-        camera.y = 0;
-        var player = transform.forward;
-        player.y = 0;
-
-        var minus1 = camera - player;
-        var dot = Vector3.Dot(camera.normalized, player.normalized);
-
-        d = Mathf.RoundToInt(dot);
-        return d;
     }
 }
