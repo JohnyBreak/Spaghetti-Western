@@ -7,30 +7,30 @@ public class Submachine : BaseGun
     private bool _isShooting = false;
     private IEnumerator _shootingRoutine;
 
-    void Update()
-    {
-        Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
+    //void Update()
+    //{
+    //    Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
-
-
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            TryShoot();
-        }
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        Reload();
+    //    }
 
 
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        TryShoot();
+    //    }
 
-        if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            StopShoot();
-        }
-    }
 
-    private void TryShoot()
+
+    //    if (Input.GetKeyUp(KeyCode.Mouse0))
+    //    {
+    //        StopShoot();
+    //    }
+    //}
+
+    public override void TryShoot()
     {
         if (!_canShoot) return;
 
@@ -49,7 +49,7 @@ public class Submachine : BaseGun
         Shoot();
     }
 
-    private void StopShoot()
+    public void StopShoot()
     {
         _isShooting = false;
 

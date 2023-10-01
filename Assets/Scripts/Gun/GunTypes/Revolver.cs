@@ -14,29 +14,37 @@ public class Revolver : BaseGun
         _cockWait = new WaitForSeconds(_cockTime);
     }
 
-    void Update()
-    {
-        Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
-        Debug.DrawLine(_shootPoint.position, _lookPointTransform.position, Color.blue);
+    //void Update()
+    //{
+    //    Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
+    //    Debug.DrawLine(_shootPoint.position, _lookPointTransform.position, Color.blue);
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        Reload();
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            TryShoot();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.Mouse0))
+    //    {
+    //        TryShoot();
+    //    }
+    //}
 
-    private void TryShoot() 
+    public override void TryShoot() 
     {
         if (_cocking) return;
 
         if (!_cockedTrigger) 
         {
             StartCoroutine(CockTriggerRoutine());
+            return;
+        }
+
+        if (!_canShoot) return;
+
+        if (_bulletCountInMagazine < 1)
+        {
+            Debug.Log("no ammo");
             return;
         }
 
@@ -56,14 +64,6 @@ public class Revolver : BaseGun
 
     public override void Shoot()
     {
-        if (!_canShoot) return;
-
-        if (_bulletCountInMagazine < 1)
-        {
-            Debug.Log("no ammo");
-            return;
-        }
-
         //Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);//.InitBullet();
 
         var b = BulletPool.Instance.GetPooledObject();

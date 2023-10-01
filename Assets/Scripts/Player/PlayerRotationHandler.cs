@@ -7,7 +7,7 @@ public class PlayerRotationHandler : MonoBehaviour
     [SerializeField] private PlayerRegularRotation _playerRegularRotation;
     [SerializeField] private PlayerAimRotation _playerAimRotation;
 
-    [SerializeField] private PlayerBattleStateController _battleStateController;
+    [SerializeField] private UnitBattleStateController _battleStateController;
 
     private void Awake()
     {

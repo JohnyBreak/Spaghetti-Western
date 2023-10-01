@@ -4,40 +4,37 @@ using UnityEngine;
 
 public class Pistol : BaseGun
 {
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //void Update()
+    //{
+    //    Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
 
-    // Update is called once per frame
-    void Update()
-    {
-        Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        Reload();
+    //    }
 
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
-        {
-            Shoot();
-        }
-    }
+    //    if (Input.GetKeyDown(KeyCode.Mouse0)) 
+    //    {
+    //        Shoot();
+    //    }
+    //}
 
-    public override void Shoot()
+    public override void TryShoot()
     {
         if (!_canShoot) return;
 
-        if(_bulletCountInMagazine < 1) 
+        if (_bulletCountInMagazine < 1)
         {
             Debug.Log("no ammo");
             return;
         }
 
+        Shoot();
+    }
+
+    public override void Shoot()
+    {
         //Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);//.InitBullet();
 
         var b = BulletPool.Instance.GetPooledObject();

@@ -16,6 +16,12 @@ public abstract class BaseGun : MonoBehaviour, IGun
     protected bool _canShoot;
     protected IEnumerator _pauseRoutine;
     public abstract void Shoot();
+    public abstract void TryShoot();
 
     public abstract void Reload();
+
+    protected void Update()
+    {
+        Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
+    }
 }

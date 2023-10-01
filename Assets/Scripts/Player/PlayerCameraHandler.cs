@@ -7,7 +7,7 @@ public class PlayerCameraHandler : MonoBehaviour
     [SerializeField] private GameObject _regularCamera;
     [SerializeField] private GameObject _readyCamera;
     [SerializeField] private GameObject _aimCamera;
-    [SerializeField] private PlayerBattleStateController _battleStateController;
+    [SerializeField] private UnitBattleStateController _battleStateController;
 
     private void Awake()
     {

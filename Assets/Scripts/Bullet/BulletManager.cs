@@ -76,7 +76,7 @@ public class BulletManager : MonoBehaviour
     //    }
     //}
 
-    private void Update()
+    private void FixedUpdate()
     {
         var delta = Time.deltaTime;
         RaycastHit hit;
