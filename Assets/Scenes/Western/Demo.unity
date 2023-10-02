@@ -78961,3 +78961,30 @@ PrefabInstance:
       objectReference: {fileID: 1429121729}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+--- !u!1 &6291957599641941064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8739496910978080938, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+  m_PrefabInstance: {fileID: 6291957599641941063}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6291957599641941065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6291957599641941064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7b0cb0f08e1a64db617423baef0ce4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentRootStateName: 1
+  _currentSubStateName: 0
+  _cameraTransform: {fileID: 0}
+  _aimCamera: {fileID: 0}
+  _movementSpeed: 7.5
+  _enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  _attackCheckAngle: 0
+  _attackCheckRadius: 0

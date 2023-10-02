@@ -11,7 +11,7 @@ public class PlayerRunState : UnitBaseState
 
     public override void EnterState()
     {
-        //_ctx.PlayerAnimation.SetStance(PlayerAnimation.Stance.Run);
+        ((PlayerStateMachine)_ctx).PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
     }
 
     public override void ExitState()
@@ -70,7 +70,7 @@ public class PlayerRunState : UnitBaseState
         Vector3 cameraRelativeMovement = forwardCameraRelativeMovement + rightCameraRelativeMovement;
         */
 
-        //_ctx.AppliedMovementZ = _ctx.CameraRelativeMovement.z * _ctx.MovementSpeed;
-        //_ctx.AppliedMovementX = _ctx.CameraRelativeMovement.x * _ctx.MovementSpeed;
+        ((PlayerStateMachine)_ctx).AppliedMovementZ = ((PlayerStateMachine)_ctx).CameraRelativeMovement.z * ((PlayerStateMachine)_ctx).MovementSpeed;
+        ((PlayerStateMachine)_ctx).AppliedMovementX = ((PlayerStateMachine)_ctx).CameraRelativeMovement.x * ((PlayerStateMachine)_ctx).MovementSpeed;
     }
 }

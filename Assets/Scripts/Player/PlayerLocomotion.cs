@@ -7,7 +7,7 @@ public class PlayerLocomotion : UnitAnimation
 {
     [SerializeField] private float _smoothBlend = 0.1f;
     [SerializeField, Min(0.01f)] private float _aimWeight = 1f;
-
+    public enum Stance { None, Idle, Walk, Run }
     //private Vector2 _input;
     private PlayerInput _input;
     private int _upperBoddyLayerIndex;
@@ -15,13 +15,13 @@ public class PlayerLocomotion : UnitAnimation
     private bool _isSprinting = false;
     
     private Coroutine _aimLayerWeightRoutine;
-
+    private Coroutine _movementSpeedRoutine;
     private int _inputYHash = Animator.StringToHash("InputY");
     private int _locoInputXHash = Animator.StringToHash("LocoInputX");
     private int _locoInputYHash = Animator.StringToHash("LocoInputY");
     private int _aimingHash = Animator.StringToHash("Aiming");
     private int _isSprintingHash = Animator.StringToHash("IsSprinting");
-    
+
     void Awake()
     {
         _upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
@@ -73,6 +73,50 @@ public class PlayerLocomotion : UnitAnimation
         }
 
         _animator.SetLayerWeight(_upperBoddyLayerIndex, end);
+    }
+
+    public void SetMovementAnimation(float currentMovement) 
+    {
+        _animator.SetFloat(_inputYHash, currentMovement, _smoothBlend, Time.deltaTime);
+    }
+
+    public void SetStance(Stance stance)
+    {
+
+        switch (stance)
+        {
+            case Stance.Idle:
+
+                StartMovementCoroutine(0f);
+                break;
+            case Stance.Walk:
+
+                StartMovementCoroutine(.5f);
+                break;
+            case Stance.Run:
+                StartMovementCoroutine(1f);
+                break;
+        }
+    }
+
+    private void StartMovementCoroutine(float value)
+    {
+        if (_movementSpeedRoutine != null)
+        {
+            StopCoroutine(_movementSpeedRoutine);
+            _movementSpeedRoutine = null;
+        }
+        _movementSpeedRoutine = StartCoroutine(SetMovementSpeed(value));
+    }
+
+    private IEnumerator SetMovementSpeed(float value)
+    {
+        while (_animator.GetFloat(_inputYHash) < value - 0.05f || _animator.GetFloat(_inputYHash) > value + 0.05f)
+        {
+            yield return null;
+            _animator.SetFloat(_inputYHash, value, _smoothBlend, Time.deltaTime);
+        }
+        _animator.SetFloat(_inputYHash, value);
     }
 
     void Update()
