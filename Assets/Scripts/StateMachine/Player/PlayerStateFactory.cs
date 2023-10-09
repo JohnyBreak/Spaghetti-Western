@@ -22,8 +22,5 @@ public class PlayerStateFactory : UnitStateFactory<PlayerStateMachine.PlayerStat
 
         return _states[state];
     }
-
-    //public UnitBaseState Grounded() { RootState = States.grounded; return _states[PlayerStateMachine.PlayerStates.grounded]; }
-   // public UnitBaseState Idle() { SubState = States.idle; return _states[PlayerStateMachine.PlayerStates.idle]; }
-   // public UnitBaseState Run() { SubState = States.run; return _states[PlayerStateMachine.PlayerStates.run]; }
 }
+

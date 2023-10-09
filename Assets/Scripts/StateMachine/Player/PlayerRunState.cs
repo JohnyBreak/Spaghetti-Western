@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunState : UnitBaseState<PlayerStateMachine.PlayerStates>
+public class PlayerRunState : PlayerBaseState//UnitBaseState<PlayerStateMachine.PlayerStates>
 {
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base(currentContext, playerStateFactory)
@@ -11,7 +11,7 @@ public class PlayerRunState : UnitBaseState<PlayerStateMachine.PlayerStates>
 
     public override void EnterState()
     {
-        ((PlayerStateMachine)_ctx).PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
+        Ctx.PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
     }
 
     public override void ExitState()
@@ -34,7 +34,7 @@ public class PlayerRunState : UnitBaseState<PlayerStateMachine.PlayerStates>
 
     public override void CheckSwitchStates()
     {
-        if (!((PlayerStateMachine)_ctx).IsMovementPressed)
+        if (!Ctx.IsMovementPressed)
         {
             SwitchState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
         }
@@ -74,7 +74,7 @@ public class PlayerRunState : UnitBaseState<PlayerStateMachine.PlayerStates>
         Vector3 cameraRelativeMovement = forwardCameraRelativeMovement + rightCameraRelativeMovement;
         */
 
-        ((PlayerStateMachine)_ctx).AppliedMovementZ = ((PlayerStateMachine)_ctx).CameraRelativeMovement.z * ((PlayerStateMachine)_ctx).MovementSpeed;
-        ((PlayerStateMachine)_ctx).AppliedMovementX = ((PlayerStateMachine)_ctx).CameraRelativeMovement.x * ((PlayerStateMachine)_ctx).MovementSpeed;
+        Ctx.AppliedMovementZ = Ctx.CameraRelativeMovement.z * Ctx.MovementSpeed;
+        Ctx.AppliedMovementX = Ctx.CameraRelativeMovement.x * Ctx.MovementSpeed;
     }
 }

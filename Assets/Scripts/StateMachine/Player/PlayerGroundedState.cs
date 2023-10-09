@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : UnitBaseState<PlayerStateMachine.PlayerStates>, IRootState
+public class PlayerGroundedState : PlayerBaseState//UnitBaseState<PlayerStateMachine.PlayerStates>, IRootState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
         : base(currentContext, playerStateFactory)
@@ -30,7 +30,7 @@ public class PlayerGroundedState : UnitBaseState<PlayerStateMachine.PlayerStates
 
     public override void InitializeSubState()
     {
-        if (!((PlayerStateMachine)_ctx).IsMovementPressed)
+        if (!Ctx.IsMovementPressed)
         {
             SetSubState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
         }
@@ -68,7 +68,7 @@ public class PlayerGroundedState : UnitBaseState<PlayerStateMachine.PlayerStates
 
     public void HandleGravity()
     {
-        ((PlayerStateMachine)_ctx).CurrentMovementY = ((PlayerStateMachine)_ctx).GroundedGravity;
-        ((PlayerStateMachine)_ctx).AppliedMovementY = ((PlayerStateMachine)_ctx).GroundedGravity;
+        Ctx.CurrentMovementY = Ctx.GroundedGravity;
+        Ctx.AppliedMovementY = Ctx.GroundedGravity;
     }
 }

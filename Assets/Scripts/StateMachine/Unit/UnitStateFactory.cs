@@ -1,5 +1,4 @@
 using System;
-using TestRSM;
 
 public abstract class UnitStateFactory<Estate> where Estate : Enum
 {

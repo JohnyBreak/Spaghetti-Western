@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerIdleState : UnitBaseState<PlayerStateMachine.PlayerStates>
+public class PlayerIdleState : PlayerBaseState
 {
     public PlayerIdleState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base(currentContext, playerStateFactory)
@@ -11,9 +11,9 @@ public class PlayerIdleState : UnitBaseState<PlayerStateMachine.PlayerStates>
 
     public override void EnterState()
     {
-        ((PlayerStateMachine)_ctx).AppliedMovementX = 0;
-        ((PlayerStateMachine)_ctx).AppliedMovementZ = 0;
-        ((PlayerStateMachine)_ctx).PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
+        Ctx.AppliedMovementX = 0;
+        Ctx.AppliedMovementZ = 0;
+        Ctx.PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
     }
 
     public override void ExitState()
@@ -33,15 +33,15 @@ public class PlayerIdleState : UnitBaseState<PlayerStateMachine.PlayerStates>
     private void HandleRotatation()
     {
         float turnSmoothVelocity = 0;
-        float targetAngle = Mathf.Atan2(((PlayerStateMachine)_ctx).CurrentMovement.x, ((PlayerStateMachine)_ctx).CurrentMovement.z) * Mathf.Rad2Deg + ((PlayerStateMachine)_ctx).CameraTransform.eulerAngles.y;
-        float angle = Mathf.SmoothDampAngle(_ctx.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, ((PlayerStateMachine)_ctx).TurnSmoothTime);
+        float targetAngle = Mathf.Atan2(Ctx.CurrentMovement.x, Ctx.CurrentMovement.z) * Mathf.Rad2Deg + Ctx.CameraTransform.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(Ctx.transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, Ctx.TurnSmoothTime);
 
-        _ctx.transform.rotation = Quaternion.Euler(0, angle, 0);
+        Ctx.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 
     public override void CheckSwitchStates()
     {
-        if (((PlayerStateMachine)_ctx).IsMovementPressed)
+        if (Ctx.IsMovementPressed)
         {
             SwitchState(_factory.GetState(PlayerStateMachine.PlayerStates.run));
         }

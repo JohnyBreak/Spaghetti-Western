@@ -1,10 +1,9 @@
 using System;
-using UnityEngine;
 
 public abstract class UnitBaseState<Estate> where Estate : Enum
 {
     protected bool _isRootState = false;
-    protected UnitStateMachine<Estate> _ctx;
+    private UnitStateMachine<Estate> _ctx;
     protected UnitStateFactory<Estate> _factory;
     protected UnitBaseState<Estate> _currentSuperState;
     protected UnitBaseState<Estate> _currentSubState;
@@ -58,5 +57,10 @@ public abstract class UnitBaseState<Estate> where Estate : Enum
     {
         ExitState();
         if (_currentSubState != null) _currentSubState.ExitStates();
+    }
+
+    protected UnitStateMachine<Estate> GetContext()
+    {
+        return _ctx;
     }
 }
