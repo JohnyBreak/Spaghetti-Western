@@ -78980,11 +78980,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentRootStateName: 1
   _currentSubStateName: 0
-  _cameraTransform: {fileID: 0}
-  _aimCamera: {fileID: 0}
+  _cameraTransform: {fileID: 1276274270}
   _movementSpeed: 7.5
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 0
-  _attackCheckAngle: 0
-  _attackCheckRadius: 0

@@ -11,6 +11,14 @@ public class PlayerInput : MonoBehaviour
     public event System.Action<bool> ReloadEvent;
 
     private Vector3 _moveVector;
+    private bool _isMovementPressed;
+    public bool IsMovementPressed => _isMovementPressed;
+    private bool _aimPressed;
+    public bool AimPressed
+    {
+        get { return _aimPressed; }
+        private set { _aimPressed = value; }
+    }
 
     public Vector3 MoveVector
     {
@@ -26,6 +34,7 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         _moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+        _isMovementPressed = _moveVector != Vector3.zero;
 
         if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
@@ -43,11 +52,13 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Mouse1))
         {
+            _aimPressed = true;
             RMBEvent?.Invoke(true);
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse1))
         {
+            _aimPressed = false;
             RMBEvent?.Invoke(false);
         }
 

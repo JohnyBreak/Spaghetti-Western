@@ -1,13 +1,15 @@
+using System;
 using UnityEngine;
-public abstract class UnitBaseState 
+
+public abstract class UnitBaseState<Estate> where Estate : Enum
 {
     protected bool _isRootState = false;
-    protected UnitStateMachine _ctx;
-    protected UnitStateFactory _factory;
-    protected UnitBaseState _currentSuperState;
-    protected UnitBaseState _currentSubState;
+    protected UnitStateMachine<Estate> _ctx;
+    protected UnitStateFactory<Estate> _factory;
+    protected UnitBaseState<Estate> _currentSuperState;
+    protected UnitBaseState<Estate> _currentSubState;
 
-    public UnitBaseState(UnitStateMachine currentContext, UnitStateFactory unitStateFactory) 
+    public UnitBaseState(UnitStateMachine<Estate> currentContext, UnitStateFactory<Estate> unitStateFactory) 
     {
         _ctx = currentContext;
         _factory = unitStateFactory;
@@ -25,7 +27,7 @@ public abstract class UnitBaseState
         if (_currentSubState != null) _currentSubState.UpdateStates();
     }
 
-    protected void SwitchState(UnitBaseState newState) 
+    protected void SwitchState(UnitBaseState<Estate> newState) 
     {
         ExitState();
 
@@ -41,12 +43,12 @@ public abstract class UnitBaseState
         }
     }
 
-    protected void SetSuperState(UnitBaseState newSuperState) 
+    protected void SetSuperState(UnitBaseState<Estate> newSuperState) 
     {
         _currentSuperState = newSuperState;
     }
 
-    protected void SetSubState(UnitBaseState newSubState) 
+    protected void SetSubState(UnitBaseState<Estate> newSubState) 
     {
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);

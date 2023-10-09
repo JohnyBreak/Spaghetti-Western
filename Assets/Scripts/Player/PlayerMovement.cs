@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 cameraEuler = Quaternion.Euler(0, _cameraTransform.eulerAngles.y, 0) * _playerInput.MoveVector;
             Vector3 movementDirection = cameraEuler.normalized;
 
-            _ctrl.SimpleMove(movementDirection * _finalSpeed);
+            _ctrl.Move(movementDirection * _finalSpeed);
         }
     }
 

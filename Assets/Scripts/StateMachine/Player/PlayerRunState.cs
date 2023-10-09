@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRunState : UnitBaseState
+public class PlayerRunState : UnitBaseState<PlayerStateMachine.PlayerStates>
 {
     public PlayerRunState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
         : base(currentContext, playerStateFactory)
@@ -34,6 +34,10 @@ public class PlayerRunState : UnitBaseState
 
     public override void CheckSwitchStates()
     {
+        if (!((PlayerStateMachine)_ctx).IsMovementPressed)
+        {
+            SwitchState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
+        }
         //if (!_ctx.IsMovementPressed)
         //{
         //    SwitchState(_factory.Idle());

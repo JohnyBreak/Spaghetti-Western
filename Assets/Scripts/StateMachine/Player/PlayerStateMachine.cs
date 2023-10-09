@@ -7,12 +7,19 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerStateMachine : UnitStateMachine
+public class PlayerStateMachine : UnitStateMachine<PlayerStateMachine.PlayerStates>
 {
+    public enum PlayerStates 
+    { 
+        idle,
+        run,
+        grounded
+    }
+
     #region Fields
 
-    [SerializeField] protected PlayerStateFactory.States _currentRootStateName;
-    [SerializeField] protected PlayerStateFactory.States _currentSubStateName;
+    [SerializeField] protected PlayerStates _currentRootStateName;
+    [SerializeField] protected PlayerStates _currentSubStateName;
 
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _movementSpeed = 7.5f;
@@ -102,7 +109,7 @@ public class PlayerStateMachine : UnitStateMachine
 
          //new PlayerInputActions();
         _states = new PlayerStateFactory(this);
-        _currentState = ((PlayerStateFactory)_states).Grounded();
+        _currentState = _states.GetState(PlayerStates.grounded);
         _currentState.EnterState();
 
 
@@ -148,14 +155,14 @@ public class PlayerStateMachine : UnitStateMachine
     {
         if (GameStateManager.CurrentGameState != GameStateManager.GameState.GamePlay) return;
         //Debug.DrawRay(transform.position, Vector3.up * 1.4f, Color.cyan);
-        _controller.CanSnapToGround = IsGrounded && !_isJumping;
+        _controller.ShouldSnapToGround = IsGrounded && !_isJumping;
 
         _cameraRelativeMovement = GetCameraRelativeMoveDirection();
         _currentState.UpdateStates();
         _currentRootStateName = _states.RootState;
         _currentSubStateName = _states.SubState;
         //_playerAnimation.SetMovementAnimation(GetMagnitudedMoveVectorForAnimation());
-        _controller.SimpleMove(_appliedMovement);
+        _controller.Move(_appliedMovement);
     }
 
     private float GetMagnitudedMoveVectorForAnimation() 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : UnitBaseState, IRootState
+public class PlayerGroundedState : UnitBaseState<PlayerStateMachine.PlayerStates>, IRootState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
         : base(currentContext, playerStateFactory)
@@ -32,11 +32,11 @@ public class PlayerGroundedState : UnitBaseState, IRootState
     {
         if (!((PlayerStateMachine)_ctx).IsMovementPressed)
         {
-            SetSubState(((PlayerStateFactory)_factory).Idle());
+            SetSubState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
         }
         else
         {
-            SetSubState(((PlayerStateFactory)_factory).Run());
+            SetSubState(_factory.GetState(PlayerStateMachine.PlayerStates.run));
         }
     }
 

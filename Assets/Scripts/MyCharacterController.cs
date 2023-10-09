@@ -18,7 +18,7 @@ public class MyCharacterController : MonoBehaviour
     public Vector3 Velocity { get => _velocity; set => _velocity = value; }
     public float PlayerHeight { get => _playerHeight; }
     public Vector3 MoveDir { get => _move; set => _move = value; }
-    public bool CanSnapToGround;
+    public bool ShouldSnapToGround;
     public bool GroundDiff;
 
     //ground check
@@ -51,7 +51,7 @@ public class MyCharacterController : MonoBehaviour
 
     #region Controller
 
-    public void SimpleMove(Vector3 moveVector)
+    public void Move(Vector3 moveVector)
     {
         _move = moveVector;
        
@@ -133,7 +133,7 @@ public class MyCharacterController : MonoBehaviour
             if (collider[i].transform == tempHit.transform)
             {
                 _groundHit = tempHit;
-                if(CanSnapToGround)
+                if(ShouldSnapToGround)
                 {
                     if (!_smooth)
                     {
