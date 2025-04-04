@@ -1,13 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCameraHandler : MonoBehaviour
+public class PlayerCameraHandler : MonoBehaviour, IInitializable
 {
-    [SerializeField] private GameObject _regularCamera;
-    [SerializeField] private GameObject _readyCamera;
-    [SerializeField] private GameObject _aimCamera;
     [SerializeField] private UnitBattleStateController _battleStateController;
+
+    private GameObject _regularCamera;
+    private GameObject _readyCamera;
+    private GameObject _aimCamera;
+    
+    public void Init()
+    {
+        var holder = ServiceLocator.Current.Get<CamerasHolder>();
+
+        _regularCamera = holder.RegularCamera;
+        _readyCamera = holder.ReadyCamera;
+        _aimCamera = holder.AimCamera;
+    }
 
     private void Awake()
     {
@@ -19,7 +27,7 @@ public class PlayerCameraHandler : MonoBehaviour
         _battleStateController.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(BattleState state) 
+    private void OnBattleStateChanged(string state) 
     {
         _regularCamera.SetActive(false);
         _readyCamera.SetActive(false);

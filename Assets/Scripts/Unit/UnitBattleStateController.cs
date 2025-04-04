@@ -1,32 +1,25 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 public class UnitBattleStateController : MonoBehaviour
 {
-    public Action<BattleState> BattleStateChangedEvent;
+    public Action<string> BattleStateChangedEvent;
 
-    [SerializeField] protected BattleState _currentState;
+    [SerializeField] protected string _currentState = BattleState.Regular;
     
-    public BattleState CurrentState => _currentState;
+    public string CurrentState => _currentState;
     
-    void Start()
-    {
-        SetBattleState(BattleState.Regular);
-    }
 
-    public void SetBattleState(BattleState state) 
+    public void SetBattleState(string state) 
     {
         _currentState = state;
         BattleStateChangedEvent?.Invoke(_currentState);
     }
 }
 
-public enum BattleState
+public class BattleState
 {
-    Regular,
-    Ready,
-    Aim,
+    public const string Regular = "Regular";
+    public const string Ready = "Ready";
+    public const string Aim = "Aim";
 }

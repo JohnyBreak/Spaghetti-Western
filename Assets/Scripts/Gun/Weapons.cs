@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -61,7 +60,10 @@ public class Weapons : MonoBehaviour
 
         foreach (var gun in _activeGuns)
         {
-            if(gun is Submachine) ((Submachine)gun).StopShoot();
+            if (gun is Submachine submachine) 
+            {
+                submachine.StopShoot();
+            }
         }
 
     }

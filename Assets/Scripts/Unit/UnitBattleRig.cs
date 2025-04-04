@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class UnitBattleRig : MonoBehaviour
@@ -19,7 +17,7 @@ public class UnitBattleRig : MonoBehaviour
         _battleState.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(BattleState state)
+    private void OnBattleStateChanged(string state)
     {
         switch (state)
         {

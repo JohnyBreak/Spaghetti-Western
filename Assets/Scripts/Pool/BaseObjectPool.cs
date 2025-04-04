@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,7 +36,7 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolabl
 
         }
         T o = CreateNewObject();
-        o.gameObject.transform.SetParent(null);
+        o.gameObject.transform.parent = null;
         return o;
     }
 
@@ -54,7 +53,7 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolabl
     public void BackObjectToPool(T obj)
     {
         if (obj == null) return;
-        obj.transform.SetParent(transform);
+        obj.transform.parent = transform;
         obj.gameObject.SetActive(false);
     }
 

@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Security.Claims;
 using UnityEngine;
 
 public class PlayerLocomotion : UnitAnimation
@@ -119,28 +117,28 @@ public class PlayerLocomotion : UnitAnimation
         _animator.SetFloat(_inputYHash, value);
     }
 
-    //void Update()
-    //{
-    //    if (_input.NormalizedMoveVector == Vector3.zero)
-    //    {
-    //        //_animator.SetFloat("InputX", 0, _smoothBlend, Time.deltaTime);
-    //        _animator.SetFloat(_inputYHash, 0, _smoothBlend, Time.deltaTime);
-    //        _animator.SetFloat(_locoInputXHash, 0, _smoothBlend, Time.deltaTime);
-    //        _animator.SetFloat(_locoInputYHash, 0, _smoothBlend, Time.deltaTime);
-    //    }
-    //    else
-    //    {
-    //        //var d = CalcVector();
-    //        if (_aiming)//(d != 0)
-    //        {
-    //            _animator.SetFloat(_locoInputXHash, _input.NormalizedMoveVector.x/* * d*/, _smoothBlend, Time.deltaTime);
-    //            _animator.SetFloat(_locoInputYHash, _input.NormalizedMoveVector.z/* * d*/, _smoothBlend, Time.deltaTime);
-    //        }
-    //        else
-    //        {
-    //            //_animator.SetFloat("InputX", 0, _smoothBlend, Time.deltaTime);
-    //            _animator.SetFloat(_inputYHash, (_isSprinting) ? 1 : 0.5f, _smoothBlend, Time.deltaTime);
-    //        }
-    //    }
-    //}
+    void Update()
+    {
+        if (_input.NormalizedMoveVector == Vector3.zero)
+        {
+            //_animator.SetFloat("InputX", 0, _smoothBlend, Time.deltaTime);
+            _animator.SetFloat(_inputYHash, 0, _smoothBlend, Time.deltaTime);
+            _animator.SetFloat(_locoInputXHash, 0, _smoothBlend, Time.deltaTime);
+            _animator.SetFloat(_locoInputYHash, 0, _smoothBlend, Time.deltaTime);
+        }
+        else
+        {
+            //var d = CalcVector();
+            if (_aiming)//(d != 0)
+            {
+                _animator.SetFloat(_locoInputXHash, _input.NormalizedMoveVector.x/* * d*/, _smoothBlend, Time.deltaTime);
+                _animator.SetFloat(_locoInputYHash, _input.NormalizedMoveVector.z/* * d*/, _smoothBlend, Time.deltaTime);
+            }
+            else
+            {
+                //_animator.SetFloat("InputX", 0, _smoothBlend, Time.deltaTime);
+                _animator.SetFloat(_inputYHash, (_isSprinting) ? 1 : 0.5f, _smoothBlend, Time.deltaTime);
+            }
+        }
+    }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerRotationHandler : MonoBehaviour
@@ -19,7 +17,7 @@ public class PlayerRotationHandler : MonoBehaviour
         _battleStateController.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(BattleState state)
+    private void OnBattleStateChanged(string state)
     {        
         _playerRegularRotation.enabled = false;
         _playerAimRotation.enabled = false;

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerBattleStateController : UnitBattleStateController
@@ -11,13 +10,13 @@ public class PlayerBattleStateController : UnitBattleStateController
     private void Awake()
     {
         _input.RMBEvent += OnRMB;
-        _input.LMBPressEvent += OnLMBPressed;
-        _input.LMBReleaseEvent += OnLMBReleased;
+        //_input.LMBPressEvent += OnLMBPressed;
+        //_input.LMBReleaseEvent += OnLMBReleased;
     }
     
     private void OnLMBPressed()
     {
-        StopResetting();
+        //StopResetting();
         if (_currentState == BattleState.Aim) return;
         SetBattleState(BattleState.Ready);
     }
@@ -25,24 +24,24 @@ public class PlayerBattleStateController : UnitBattleStateController
     private void OnLMBReleased()
     {
         if (_currentState == BattleState.Aim) return;
-        SetBattleState(BattleState.Ready);
-        StartResetting();
+        SetBattleState(BattleState.Regular);
+        //StartResetting();
     }
 
     private void OnRMB(bool aiming)
     {
-        var state = aiming ? BattleState.Aim : BattleState.Ready;
+        var state = aiming ? BattleState.Aim : BattleState.Regular;
         SetBattleState(state);
 
-        if(aiming) StopResetting();
-        else StartResetting();
+        //if(aiming) StopResetting();
+        //else StartResetting();
     }
 
     private void OnDestroy()
     {
         _input.RMBEvent -= OnRMB;
-        _input.LMBPressEvent -= OnLMBPressed;
-        _input.LMBReleaseEvent -= OnLMBReleased;
+        //_input.LMBPressEvent -= OnLMBPressed;
+        //_input.LMBReleaseEvent -= OnLMBReleased;
     }
 
     private void StopResetting()

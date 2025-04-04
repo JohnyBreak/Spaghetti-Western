@@ -1,0 +1,25 @@
+using UnityEngine;
+
+public class SampleSceneServiceLoader : MonoBehaviour
+{
+    [SerializeField] private CamerasHolder _camerasHolder;
+    [SerializeField] private Player _player;
+
+    private void Start()
+    {
+        ServiceLocator.Initialize();
+
+        Register();
+        Init();
+    }
+
+    private void Register() 
+    {
+        ServiceLocator.Current.Register(_camerasHolder);
+    }
+
+    private void Init() 
+    {
+        _player.Init();
+    }
+}

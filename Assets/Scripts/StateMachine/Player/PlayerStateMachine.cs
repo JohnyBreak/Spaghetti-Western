@@ -1,11 +1,4 @@
-using Cinemachine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class PlayerStateMachine : UnitStateMachine<PlayerStateMachine.PlayerStates>
 {
