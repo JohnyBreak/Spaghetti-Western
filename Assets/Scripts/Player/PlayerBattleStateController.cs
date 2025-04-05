@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,38 +11,53 @@ public class PlayerBattleStateController : UnitBattleStateController
     private void Awake()
     {
         _input.RMBEvent += OnRMB;
-        //_input.LMBPressEvent += OnLMBPressed;
-        //_input.LMBReleaseEvent += OnLMBReleased;
+        _input.LMBPressEvent += OnLMBPressed;
+        _input.LMBReleaseEvent += OnLMBReleased;
+        _input.ShiftEvent += OnShiftPressed;
     }
-    
+
+    private void OnShiftPressed(bool isSprinting)
+    {
+        StopResetting();
+        SetBattleState(BattleState.Regular);
+    }
+
     private void OnLMBPressed()
     {
-        //StopResetting();
-        if (_currentState == BattleState.Aim) return;
-        SetBattleState(BattleState.Ready);
+        StopResetting();
+
+        if (_currentState == BattleState.Regular)
+        {
+            SetBattleState(BattleState.Ready);
+        }
+
+
+        //if (_currentState == BattleState.Aim) return;
+        //SetBattleState(BattleState.Ready);
     }
 
     private void OnLMBReleased()
     {
         if (_currentState == BattleState.Aim) return;
-        SetBattleState(BattleState.Regular);
-        //StartResetting();
+        SetBattleState(BattleState.Ready);
+        StartResetting();
     }
 
     private void OnRMB(bool aiming)
     {
-        var state = aiming ? BattleState.Aim : BattleState.Regular;
+        var state = aiming ? BattleState.Aim : BattleState.Ready;
         SetBattleState(state);
 
-        //if(aiming) StopResetting();
-        //else StartResetting();
+        if(aiming) StopResetting();
+        else StartResetting();
     }
 
     private void OnDestroy()
     {
         _input.RMBEvent -= OnRMB;
-        //_input.LMBPressEvent -= OnLMBPressed;
-        //_input.LMBReleaseEvent -= OnLMBReleased;
+        _input.LMBPressEvent -= OnLMBPressed;
+        _input.LMBReleaseEvent -= OnLMBReleased;
+        _input.ShiftEvent -= OnShiftPressed;
     }
 
     private void StopResetting()

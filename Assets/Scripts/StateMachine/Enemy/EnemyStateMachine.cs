@@ -1,13 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class EnemyStateMachine : UnitStateMachine<EnemyStateMachine.EnemyStates>
+public class EnemyStateMachine : UnitStateMachine
 {
-    public enum EnemyStates
+    public class EnemyStates
     {
-        idle,
-        run,
-        grounded
+        public const int Idle = 0;
+        public const int Run = 1;
+        public const int Grounded = 2;
     }
 }

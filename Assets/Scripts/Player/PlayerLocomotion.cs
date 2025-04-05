@@ -5,11 +5,13 @@ public class PlayerLocomotion : UnitAnimation
 {
     [SerializeField] private float _smoothBlend = 0.1f;
     [SerializeField, Min(0.01f)] private float _aimWeight = 1f;
+    [SerializeField] private UnitBattleStateController _battleStateController;
+
     public enum Stance { None, Idle, Walk, Run }
     //private Vector2 _input;
     private PlayerInput _input;
     private int _upperBoddyLayerIndex;
-    private bool _aiming = false;
+    private bool _isLocomotion = false;
     private bool _isSprinting = false;
     
     private Coroutine _aimLayerWeightRoutine;
@@ -17,32 +19,43 @@ public class PlayerLocomotion : UnitAnimation
     private int _inputYHash = Animator.StringToHash("InputY");
     private int _locoInputXHash = Animator.StringToHash("LocoInputX");
     private int _locoInputYHash = Animator.StringToHash("LocoInputY");
-    private int _aimingHash = Animator.StringToHash("Aiming");
+    private int _locomotionHash = Animator.StringToHash("Locomotion");
     private int _isSprintingHash = Animator.StringToHash("IsSprinting");
 
     void Awake()
     {
         _upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
         _input = GetComponent<PlayerInput>();
-        _input.RMBEvent += OnAim;
+        _battleStateController.BattleStateChangedEvent += OnAim;
+        //_input.RMBEvent += OnAim;
         _input.ShiftEvent += OnSprint;
         //_animator = GetComponent<Animator>();
     }
 
     private void OnDestroy()
     {
-        _input.RMBEvent -= OnAim;
+        //_input.RMBEvent -= OnAim;
+        _battleStateController.BattleStateChangedEvent -= OnAim;
     }
 
-    private void OnAim(bool isAiming) 
+    private void OnAim(string state) 
     {
-        _animator.SetBool(_aimingHash, isAiming); _aiming = isAiming;
-        UpdateLayer((isAiming) ? _aimWeight : 0);
+        var isLocomotion = (state != BattleState.Regular);
+        _animator.SetBool(_locomotionHash, isLocomotion); 
+        _isLocomotion = isLocomotion;
+        UpdateLayer((isLocomotion) ? _aimWeight : 0);
     }
 
     private void OnSprint(bool isSprinting) 
     {
+        if (isSprinting)
+        {
+            _animator.SetBool(_locomotionHash, false);
+            _isLocomotion = false;
+        }
+
         _animator.SetBool(_isSprintingHash, isSprinting);
+
         _isSprinting = isSprinting;
     }
 
@@ -129,7 +142,7 @@ public class PlayerLocomotion : UnitAnimation
         else
         {
             //var d = CalcVector();
-            if (_aiming)//(d != 0)
+            if (_isLocomotion)//(d != 0)
             {
                 _animator.SetFloat(_locoInputXHash, _input.NormalizedMoveVector.x/* * d*/, _smoothBlend, Time.deltaTime);
                 _animator.SetFloat(_locoInputYHash, _input.NormalizedMoveVector.z/* * d*/, _smoothBlend, Time.deltaTime);

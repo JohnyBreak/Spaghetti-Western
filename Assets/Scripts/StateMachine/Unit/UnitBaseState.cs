@@ -1,14 +1,14 @@
 using System;
 
-public abstract class UnitBaseState<Estate> where Estate : Enum
+public abstract class UnitBaseState
 {
     protected bool _isRootState = false;
-    private UnitStateMachine<Estate> _ctx;
-    protected UnitStateFactory<Estate> _factory;
-    protected UnitBaseState<Estate> _currentSuperState;
-    protected UnitBaseState<Estate> _currentSubState;
+    private UnitStateMachine _ctx;
+    protected UnitStateFactory _factory;
+    protected UnitBaseState _currentSuperState;
+    protected UnitBaseState  _currentSubState;
 
-    public UnitBaseState(UnitStateMachine<Estate> currentContext, UnitStateFactory<Estate> unitStateFactory) 
+    public UnitBaseState(UnitStateMachine currentContext, UnitStateFactory unitStateFactory) 
     {
         _ctx = currentContext;
         _factory = unitStateFactory;
@@ -26,7 +26,7 @@ public abstract class UnitBaseState<Estate> where Estate : Enum
         if (_currentSubState != null) _currentSubState.UpdateStates();
     }
 
-    protected void SwitchState(UnitBaseState<Estate> newState) 
+    protected void SwitchState(UnitBaseState newState) 
     {
         ExitState();
 
@@ -42,12 +42,12 @@ public abstract class UnitBaseState<Estate> where Estate : Enum
         }
     }
 
-    protected void SetSuperState(UnitBaseState<Estate> newSuperState) 
+    protected void SetSuperState(UnitBaseState newSuperState) 
     {
         _currentSuperState = newSuperState;
     }
 
-    protected void SetSubState(UnitBaseState<Estate> newSubState) 
+    protected void SetSubState(UnitBaseState newSubState) 
     {
         _currentSubState = newSubState;
         newSubState.SetSuperState(this);
@@ -59,7 +59,7 @@ public abstract class UnitBaseState<Estate> where Estate : Enum
         if (_currentSubState != null) _currentSubState.ExitStates();
     }
 
-    protected UnitStateMachine<Estate> GetContext()
+    protected UnitStateMachine GetContext()
     {
         return _ctx;
     }

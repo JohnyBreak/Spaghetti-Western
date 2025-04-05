@@ -28,7 +28,8 @@ public class PlayerRotationHandler : MonoBehaviour
                 _playerRegularRotation.enabled = true;
                 break;
             case BattleState.Ready:
-                _playerRegularRotation.enabled = true;
+                //_playerRegularRotation.enabled = true;
+                _playerAimRotation.enabled = true;
                 break;
             case BattleState.Aim:
                 _playerAimRotation.enabled = true;

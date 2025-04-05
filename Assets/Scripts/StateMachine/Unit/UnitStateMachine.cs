@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class UnitStateMachine<EState> : MonoBehaviour where EState : Enum
+public class UnitStateMachine : MonoBehaviour
 {
-    protected UnitBaseState<EState> _currentState;
-    protected UnitStateFactory<EState> _states;
-    public UnitBaseState<EState> CurrentState { get { return _currentState; } set { _currentState = value; } }
+    protected UnitBaseState _currentState;
+    protected UnitStateFactory _states;
+    public UnitBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
 }

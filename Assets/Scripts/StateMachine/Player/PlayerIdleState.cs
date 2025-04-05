@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
@@ -43,7 +41,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Ctx.IsMovementPressed)
         {
-            SwitchState(_factory.GetState(PlayerStateMachine.PlayerStates.run));
+            SwitchState(_factory.GetState(PlayerStates.Run));
         }
     }
 }

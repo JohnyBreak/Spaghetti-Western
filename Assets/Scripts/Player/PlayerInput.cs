@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
@@ -10,10 +9,12 @@ public class PlayerInput : MonoBehaviour
     public event System.Action<bool> ShiftEvent;
     public event System.Action<bool> ReloadEvent;
 
+    private bool _aimPressed;
     private Vector3 _moveVector;
     private bool _isMovementPressed;
     public bool IsMovementPressed => _isMovementPressed;
-    private bool _aimPressed;
+    public bool IsSprinting { get; private set; }
+
     public bool AimPressed
     {
         get { return _aimPressed; }
@@ -64,11 +65,13 @@ public class PlayerInput : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            IsSprinting = true;
             ShiftEvent?.Invoke(true);
         }
 
         if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            IsSprinting = false;
             ShiftEvent?.Invoke(false);
         }
 

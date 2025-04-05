@@ -36,7 +36,7 @@ public class PlayerRunState : PlayerBaseState//UnitBaseState<PlayerStateMachine.
     {
         if (!Ctx.IsMovementPressed)
         {
-            SwitchState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
+            SwitchState(_factory.GetState(PlayerStates.Idle));
         }
         //if (!_ctx.IsMovementPressed)
         //{

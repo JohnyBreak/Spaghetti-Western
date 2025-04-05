@@ -32,11 +32,11 @@ public class PlayerGroundedState : PlayerBaseState//UnitBaseState<PlayerStateMac
     {
         if (!Ctx.IsMovementPressed)
         {
-            SetSubState(_factory.GetState(PlayerStateMachine.PlayerStates.idle));
+            SetSubState(_factory.GetState(PlayerStates.Idle));
         }
         else
         {
-            SetSubState(_factory.GetState(PlayerStateMachine.PlayerStates.run));
+            SetSubState(_factory.GetState(PlayerStates.Run));
         }
     }
 

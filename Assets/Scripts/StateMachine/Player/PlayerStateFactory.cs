@@ -1,21 +1,21 @@
 
 using System.Collections.Generic;
 
-public class PlayerStateFactory : UnitStateFactory<PlayerStateMachine.PlayerStates>
+public class PlayerStateFactory : UnitStateFactory
 {
     private PlayerStateMachine _context;
-    private Dictionary<PlayerStateMachine.PlayerStates, UnitBaseState<PlayerStateMachine.PlayerStates>> _states = new Dictionary<PlayerStateMachine.PlayerStates, UnitBaseState<PlayerStateMachine.PlayerStates>>();
+    private Dictionary<int, UnitBaseState> _states = new ();
 
     public PlayerStateFactory(PlayerStateMachine currentContext) 
     {
         _context = currentContext;
-        _states[PlayerStateMachine.PlayerStates.idle] = new PlayerIdleState(_context, this);
-        _states[PlayerStateMachine.PlayerStates.run] = new PlayerRunState(_context, this);
-        _states[PlayerStateMachine.PlayerStates.grounded] = new PlayerGroundedState(_context, this);
+        _states[PlayerStates.Idle] = new PlayerIdleState(_context, this);
+        _states[PlayerStates.Run] = new PlayerRunState(_context, this);
+        _states[PlayerStates.Grounded] = new PlayerGroundedState(_context, this);
 
     }
 
-    public override UnitBaseState<PlayerStateMachine.PlayerStates> GetState(PlayerStateMachine.PlayerStates state)
+    public override UnitBaseState GetState(int state)
     {
         if (_states[state] is IRootState) RootState = state;
         else SubState = state;

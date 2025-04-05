@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EnemyBaseState : UnitBaseState<EnemyStateMachine.EnemyStates>
+public abstract class EnemyBaseState : UnitBaseState
 {
     protected EnemyStateMachine Ctx => (EnemyStateMachine)GetContext();
 

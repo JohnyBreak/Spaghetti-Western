@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class BulletManager : MonoBehaviour
@@ -11,7 +9,7 @@ public class BulletManager : MonoBehaviour
     private Dictionary<BulletType, int> _bulletDamage = new Dictionary<BulletType, int>();
     private BulletPool _pool;
 
-    private bool _isRunning = false;
+    //private bool _isRunning = false;
 
     private void Awake()
     {

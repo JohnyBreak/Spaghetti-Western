@@ -1,18 +1,20 @@
 using UnityEngine;
 
-public class PlayerStateMachine : UnitStateMachine<PlayerStateMachine.PlayerStates>
+public class PlayerStates
 {
-    public enum PlayerStates 
-    { 
-        idle,
-        run,
-        grounded
-    }
+    public const int Idle = 0;
+    public const int Run = 1;
+    public const int Grounded = 2;
+}
+
+public class PlayerStateMachine : UnitStateMachine
+{
+   
 
     #region Fields
 
-    [SerializeField] protected PlayerStates _currentRootStateName;
-    [SerializeField] protected PlayerStates _currentSubStateName;
+    [SerializeField] protected int _currentRootStateName;
+    [SerializeField] protected int _currentSubStateName;
 
     [SerializeField] private Transform _cameraTransform;
     [SerializeField] private float _movementSpeed = 7.5f;
@@ -102,7 +104,7 @@ public class PlayerStateMachine : UnitStateMachine<PlayerStateMachine.PlayerStat
 
          //new PlayerInputActions();
         _states = new PlayerStateFactory(this);
-        _currentState = _states.GetState(PlayerStates.grounded);
+        _currentState = _states.GetState(PlayerStates.Grounded);
         _currentState.EnterState();
 
 
