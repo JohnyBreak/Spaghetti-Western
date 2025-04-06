@@ -4,6 +4,7 @@ public class SampleSceneServiceLoader : MonoBehaviour
 {
     [SerializeField] private CamerasHolder _camerasHolder;
     [SerializeField] private Player _player;
+    [SerializeField] private PlayerInput _playerInput;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class SampleSceneServiceLoader : MonoBehaviour
     private void Register() 
     {
         ServiceLocator.Current.Register(_camerasHolder);
+        ServiceLocator.Current.Register(_playerInput);
     }
 
     private void Init() 

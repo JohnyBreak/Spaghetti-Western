@@ -23,5 +23,6 @@ public abstract class BaseGun : MonoBehaviour, IGun
     protected void Update()
     {
         Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
+        Debug.DrawLine(_shootPoint.position, _lookPointTransform.position, Color.green);
     }
 }

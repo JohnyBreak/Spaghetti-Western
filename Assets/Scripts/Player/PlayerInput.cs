@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IService
 {
     public event System.Action LMBPressEvent;
     public event System.Action LMBReleaseEvent;

@@ -1,22 +1,27 @@
-
 using UnityEngine;
 
-//[RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IInitializable
 {
     [SerializeField] private float _walkSpeed = 3f;
     [SerializeField] private float _runSpeed = 5f;
-    [SerializeField] private PlayerInput _playerInput;
+    private PlayerInput _playerInput;
 
     [SerializeField] private Transform _cameraTransform;
 
     private MyCharacterController _ctrl;
     private float _finalSpeed;
+
+    public void Init()
+    {
+        _playerInput = ServiceLocator.Current.Get<PlayerInput>();
+        
+        _playerInput.ShiftEvent += OnShift;
+        
+    }
+
     private void Awake()
     {
         _ctrl = GetComponent<MyCharacterController>();
-        _playerInput = GetComponent<PlayerInput>();
-        _playerInput.ShiftEvent += OnShift;
         _finalSpeed = _walkSpeed;
     }
 

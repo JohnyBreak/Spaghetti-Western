@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AimObject : MonoBehaviour
 {
     [SerializeField] private Transform _aimObject;
+    [SerializeField] private Transform _shootObject;
     [SerializeField] private float _distance = 50f;
     [SerializeField, Min(0.01f)] private float _gizmoRadius = 0.1f;
     [SerializeField] private float _speed = 50f;
@@ -17,7 +16,6 @@ public class AimObject : MonoBehaviour
         _camTransform = Camera.main.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Debug.DrawRay(_camTransform.position, _camTransform.forward * _distance, Color.green);
@@ -37,21 +35,33 @@ public class AimObject : MonoBehaviour
             //_aimObject.transform.position = _camTransform.forward * _distance;
         }
 
-        _aimObject.transform.position = Vector3.Lerp(_aimObject.transform.position, tempPos, _speed * Time.deltaTime);
+        var lookPos = _camTransform.transform.position + _camTransform.forward * _distance;
+        _aimObject.transform.position = Vector3.Lerp(_aimObject.transform.position, lookPos, _speed * Time.deltaTime);
+        _shootObject.transform.position = tempPos;//Vector3.Lerp(_aimObject.transform.position, tempPos, _speed * Time.deltaTime);
     }
 
 #if UNITY_EDITOR
 
     void OnDrawGizmos()
     {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(_aimObject.transform.position, _gizmoRadius);
+        if (_aimObject != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(_aimObject.transform.position, _gizmoRadius);
+        }
 
-        if (_camTransform == null) return;
+        if (_shootObject != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(_shootObject.transform.position, _gizmoRadius);
+        }
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(_camTransform.transform.position + _camTransform.forward * _distance, _gizmoRadius);
+        if (_camTransform != null)
+        {
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_camTransform.transform.position + _camTransform.forward * _distance, _gizmoRadius);
+        }
     }
 
 #endif

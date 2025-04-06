@@ -9,8 +9,6 @@ public class PlayerStates
 
 public class PlayerStateMachine : UnitStateMachine
 {
-   
-
     #region Fields
 
     [SerializeField] protected int _currentRootStateName;

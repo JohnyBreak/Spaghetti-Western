@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class PlayerLocomotion : UnitAnimation
+public class PlayerLocomotion : UnitAnimation, IInitializable
 {
     [SerializeField] private float _smoothBlend = 0.1f;
     [SerializeField, Min(0.01f)] private float _aimWeight = 1f;
@@ -22,13 +22,18 @@ public class PlayerLocomotion : UnitAnimation
     private int _locomotionHash = Animator.StringToHash("Locomotion");
     private int _isSprintingHash = Animator.StringToHash("IsSprinting");
 
+    public void Init()
+    {
+        _input = ServiceLocator.Current.Get<PlayerInput>();
+        //_input.RMBEvent += OnAim;
+        _input.ShiftEvent += OnSprint;
+    }
+
     void Awake()
     {
         _upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
-        _input = GetComponent<PlayerInput>();
         _battleStateController.BattleStateChangedEvent += OnAim;
-        //_input.RMBEvent += OnAim;
-        _input.ShiftEvent += OnSprint;
+        
         //_animator = GetComponent<Animator>();
     }
 

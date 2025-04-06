@@ -6,6 +6,17 @@ public class Player : MonoBehaviour, IInitializable
 
     public void Init()
     {
-        _handler.Init();
+        var components = GetComponentsInChildren<IInitializable>();
+
+        foreach (var component in components) 
+        {
+            if (component == (IInitializable)this)
+            {
+                continue;
+            }
+            component.Init();
+        }
+
+        //_handler.Init();
     }
 }

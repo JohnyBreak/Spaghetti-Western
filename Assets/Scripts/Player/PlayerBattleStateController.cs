@@ -1,15 +1,15 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
-public class PlayerBattleStateController : UnitBattleStateController
+public class PlayerBattleStateController : UnitBattleStateController, IInitializable
 {
-    [SerializeField] private PlayerInput _input;
+    private PlayerInput _input;
     [SerializeField] private float _resetTime = 2f;
     private Coroutine _resetRoutine;
 
-    private void Awake()
+    public void Init()
     {
+        _input = ServiceLocator.Current.Get<PlayerInput>();
         _input.RMBEvent += OnRMB;
         _input.LMBPressEvent += OnLMBPressed;
         _input.LMBReleaseEvent += OnLMBReleased;

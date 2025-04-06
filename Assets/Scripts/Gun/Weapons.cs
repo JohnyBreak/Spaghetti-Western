@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapons : MonoBehaviour
+public class Weapons : MonoBehaviour, IInitializable
 {
-    [SerializeField] private PlayerInput _input;
+    private PlayerInput _input;
     [SerializeField] private UnitBattleStateController _battleState;
     //[SerializeField] private bool _twoHandRigs;
     [SerializeField] private GameObject _holder1;
@@ -21,14 +21,20 @@ public class Weapons : MonoBehaviour
     public bool TwoHands => _activeGuns.Count > 1;
     public bool HasActiveGun => _activeGuns.Count > 0;
 
+    public void Init()
+    {
+        _input = ServiceLocator.Current.Get<PlayerInput>();
+        _input.LMBPressEvent += OnLMBPress;
+        _input.LMBReleaseEvent += OnLMBRelease;
+        _input.ReloadEvent += OnReload;
+    }
+
     private void Awake()
     {
         _pistol1 = _holder1.GetComponentInChildren<BaseGun>();
         _pistol2 = _holder2.GetComponentInChildren<BaseGun>();
         //_guns = GetComponentsInChildren<BaseGun>(true);
-        _input.LMBPressEvent += OnLMBPress;
-        _input.LMBReleaseEvent += OnLMBRelease;
-        _input.ReloadEvent += OnReload;
+        
     }
 
     private void OnReload(bool obj)
@@ -42,9 +48,10 @@ public class Weapons : MonoBehaviour
     private void OnLMBPress()
     {
         if(!HasActiveGun) return;
-
+        Debug.LogError("pre shoot");
         if (_battleState.CurrentState == BattleState.Regular) return;
 
+        Debug.LogError("try shoot");
         foreach (var gun in _activeGuns)
         {
             gun.TryShoot();
@@ -56,7 +63,7 @@ public class Weapons : MonoBehaviour
     {
         if (!HasActiveGun) return;
 
-        if (_battleState.CurrentState != BattleState.Aim) return;
+        //if (_battleState.CurrentState != BattleState.Aim) return;
 
         foreach (var gun in _activeGuns)
         {
