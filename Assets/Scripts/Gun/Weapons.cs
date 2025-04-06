@@ -43,7 +43,7 @@ public class Weapons : MonoBehaviour
     {
         if(!HasActiveGun) return;
 
-        if (_battleState.CurrentState != BattleState.Aim) return;
+        if (_battleState.CurrentState == BattleState.Regular) return;
 
         foreach (var gun in _activeGuns)
         {
