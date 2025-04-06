@@ -7,27 +7,12 @@ public class Revolver : BaseGun
     private bool _cockedTrigger = true;
     private bool _cocking = false;
     private WaitForSeconds _cockWait;
+    public override int Type => WeaponTypes.OneHand;
 
     private void Awake()
     {
         _cockWait = new WaitForSeconds(_cockTime);
     }
-
-    //void Update()
-    //{
-    //    Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
-    //    Debug.DrawLine(_shootPoint.position, _lookPointTransform.position, Color.blue);
-
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        Reload();
-    //    }
-
-    //    if (Input.GetKeyDown(KeyCode.Mouse0))
-    //    {
-    //        TryShoot();
-    //    }
-    //}
 
     public override void TryShoot() 
     {
@@ -63,12 +48,9 @@ public class Revolver : BaseGun
 
     public override void Shoot()
     {
-        //Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);//.InitBullet();
-
         var b = BulletPool.Instance.GetPooledObject();
         b.gameObject.SetActive(true);
         b.transform.position = _shootPoint.position;
-        //b.transform.rotation = _shootPoint.rotation;
         b.transform.LookAt(_lookPointTransform.position);
 
         _bulletCountInMagazine--;

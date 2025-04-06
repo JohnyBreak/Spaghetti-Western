@@ -8,6 +8,7 @@ public class PlayerInput : MonoBehaviour, IService
     public event System.Action<bool> RMBEvent;
     public event System.Action<bool> ShiftEvent;
     public event System.Action<bool> ReloadEvent;
+    public event System.Action<int> NumberPressEvent;
 
     private bool _aimPressed;
     private Vector3 _moveVector;
@@ -81,6 +82,21 @@ public class PlayerInput : MonoBehaviour, IService
         if (Input.GetKeyUp(KeyCode.R))
         {
             ReloadEvent?.Invoke(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            NumberPressEvent?.Invoke(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            NumberPressEvent?.Invoke(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            NumberPressEvent?.Invoke(3);
         }
     }
 }

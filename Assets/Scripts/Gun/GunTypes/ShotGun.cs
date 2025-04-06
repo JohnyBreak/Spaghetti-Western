@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShotGun : BaseGun
@@ -7,21 +6,7 @@ public class ShotGun : BaseGun
     [SerializeField] private float _inaccuracyDistance = 1;
     [SerializeField] private int _bulletsInShell = 10;
 
-    //void Update()
-    //{
-    //    Debug.DrawRay(_shootPoint.position, _shootPoint.forward * 50f, Color.red);
-
-    //    if (Input.GetKeyDown(KeyCode.R))
-    //    {
-    //        Reload();
-    //    }
-
-
-    //    if (Input.GetKeyDown(KeyCode.Mouse0))
-    //    {
-    //        Shoot();
-    //    }
-    //}
+    public override int Type => WeaponTypes.TwoHand;
 
     public override void TryShoot() 
     {
@@ -38,7 +23,6 @@ public class ShotGun : BaseGun
 
     public override void Shoot()
     {
-        //Instantiate(_bulletPrefab, _shootPoint.position, transform.localRotation);
         ShootShell();
         _bulletCountInMagazine--;
         _canShoot = false;
@@ -67,7 +51,6 @@ public class ShotGun : BaseGun
     {
         for (int i = 0; i < _bulletsInShell; i++)
         {
-            //Vector3 targetPos = _lookPointTransform.position;
             Vector3 targetPos = _shootPoint.position + _shootPoint.forward * 10;
 
             targetPos = new Vector3(
@@ -76,7 +59,6 @@ public class ShotGun : BaseGun
             targetPos.z + Random.Range(-_inaccuracyDistance, _inaccuracyDistance)
             );
 
-            //Bullet b = Instantiate(_bulletPrefab, _shootPoint.position, _shootPoint.rotation);
             var b = BulletPool.Instance.GetPooledObject();
 
             b.gameObject.SetActive(true);

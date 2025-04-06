@@ -583,22 +583,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1162978282879814683, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162978282879814683, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162978282879814683, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1162978282879814683, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
     - target: {fileID: 1162978284259035411, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: _camera
       value: 
@@ -611,10 +595,6 @@ PrefabInstance:
       propertyPath: _lookPointTransform
       value: 
       objectReference: {fileID: 4418924563550399417}
-    - target: {fileID: 8739496908892295811, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_Data.m_ConstrainedObject
-      value: 
-      objectReference: {fileID: 867471533}
     - target: {fileID: 8739496908892295811, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
@@ -651,18 +631,6 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 1962576777}
-    - target: {fileID: 8739496910967023780, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.301
-      objectReference: {fileID: 0}
-    - target: {fileID: 8739496910967023780, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8739496910967023780, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.536
-      objectReference: {fileID: 0}
     - target: {fileID: 8739496910978080930, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: _cameraTransform
       value: 
@@ -1068,11 +1036,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10.000005, y: 0.0000048026395, z: 10.000004}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!4 &867471533 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8739496909705545778, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-  m_PrefabInstance: {fileID: 639673198}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ public class PlayerRotationHandler : MonoBehaviour
         _battleStateController.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(string state)
+    private void OnBattleStateChanged(int state)
     {        
         _playerRegularRotation.enabled = false;
         _playerAimRotation.enabled = false;

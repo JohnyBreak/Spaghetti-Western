@@ -43,7 +43,7 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
         _battleStateController.BattleStateChangedEvent -= OnAim;
     }
 
-    private void OnAim(string state) 
+    private void OnAim(int state) 
     {
         var isLocomotion = (state != BattleState.Regular);
         _animator.SetBool(_locomotionHash, isLocomotion); 

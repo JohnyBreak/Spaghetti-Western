@@ -1,38 +1,42 @@
 using UnityEngine;
 
-public class UnitBattleRig : MonoBehaviour
+public class PlayerBattleRig : MonoBehaviour
 {
     [SerializeField] private UnitRig _rig;
     [SerializeField] private UnitBattleStateController _battleState;
     [SerializeField] private Weapons _weapons;
-    //[SerializeField] private bool _twoHandRigs;
 
     void Awake()
     {
+        _weapons.WeaponsChanged += OnWeaponUpdate;
         _battleState.BattleStateChangedEvent += OnBattleStateChanged;
     }
 
     private void OnDestroy()
     {
+        _weapons.WeaponsChanged -= OnWeaponUpdate;
         _battleState.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(string state)
+    private void OnWeaponUpdate() 
+    {
+        OnBattleStateChanged(_battleState.CurrentState);
+    }
+
+    private void OnBattleStateChanged(int state)
     {
         switch (state)
         {
             case BattleState.Regular:
                 _rig.ToggleSpineRig(false);
-                if (!_weapons.HasActiveGun) break;
-                _rig.ToggleRightHolsterRig(true);
-                _rig.ToggleRightIKRig(false);
-                _rig.ToggleRightAimRig(false);
+                //if (!_weapons.HasActiveGun) break;
+                
+                ToggleRightHand(false);
 
-                if (_weapons.TwoHands)
+                //if (_weapons.TwoHands)
                 {
-                    _rig.ToggleLeftHolsterRig(true);
-                    _rig.ToggleLeftIKRig(false);
-                    _rig.ToggleLeftAimRig(false);
+
+                    ToggleLeftHand(false);
                 }
 
                 break;
@@ -55,20 +59,35 @@ public class UnitBattleRig : MonoBehaviour
             case BattleState.Aim:
 
                 _rig.ToggleSpineRig(true);
-                if (!_weapons.HasActiveGun) break;
 
-                _rig.ToggleRightHolsterRig(false);
-                _rig.ToggleRightIKRig(true);
-                _rig.ToggleRightAimRig(true);
-
-                if (_weapons.TwoHands)
+                if (!_weapons.HasActiveGun)
                 {
-                    _rig.ToggleLeftHolsterRig(false);
-                    _rig.ToggleLeftIKRig(true);
-                    _rig.ToggleLeftAimRig(true);
+                    ToggleRightHand(false);
+                    ToggleLeftHand(false);
+                    break;
                 }
+
+                ToggleRightHand(_weapons.HasActiveGun);
+
+                ToggleLeftHand(_weapons.TwoHands);
 
                 break;
         }
+
+    }
+
+
+    private void ToggleRightHand(bool isActive) 
+    {
+        _rig.ToggleRightHolsterRig(!isActive);
+        _rig.ToggleRightIKRig(isActive);
+        _rig.ToggleRightAimRig(isActive);
+    }
+
+    private void ToggleLeftHand(bool isActive) 
+    {
+        _rig.ToggleLeftHolsterRig(!isActive);
+        _rig.ToggleLeftIKRig(isActive);
+        _rig.ToggleLeftAimRig(isActive);
     }
 }

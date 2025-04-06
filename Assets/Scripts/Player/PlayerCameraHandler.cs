@@ -27,7 +27,7 @@ public class PlayerCameraHandler : MonoBehaviour, IInitializable
         _battleStateController.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
-    private void OnBattleStateChanged(string state) 
+    private void OnBattleStateChanged(int state) 
     {
         _regularCamera.SetActive(false);
         _readyCamera.SetActive(false);
