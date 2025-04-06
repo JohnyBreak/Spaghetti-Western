@@ -40,14 +40,12 @@ public class PlayerInput : MonoBehaviour, IService
         if (Input.GetKeyDown(KeyCode.Mouse0)) 
         {
             LMBPressEvent?.Invoke();
-
             LMBEvent?.Invoke(true);
         }
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
             LMBReleaseEvent?.Invoke();
-
             LMBEvent?.Invoke(false);
         }
 

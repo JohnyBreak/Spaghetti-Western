@@ -7,6 +7,7 @@ public class AimObject : MonoBehaviour
     [SerializeField] private float _distance = 50f;
     [SerializeField, Min(0.01f)] private float _gizmoRadius = 0.1f;
     [SerializeField] private float _speed = 50f;
+    [SerializeField] private float _shootPointspeed = 25f;
     [SerializeField] private LayerMask _mask;
     private Vector3 _screenPoint = new Vector3(0.5f, 0.5f, 0.5f);
     private Transform _camTransform;
@@ -37,7 +38,7 @@ public class AimObject : MonoBehaviour
 
         var lookPos = _camTransform.transform.position + _camTransform.forward * _distance;
         _aimObject.transform.position = Vector3.Lerp(_aimObject.transform.position, lookPos, _speed * Time.deltaTime);
-        _shootObject.transform.position = tempPos;//Vector3.Lerp(_aimObject.transform.position, tempPos, _speed * Time.deltaTime);
+        _shootObject.transform.position = Vector3.Lerp(_shootObject.transform.position, tempPos, _shootPointspeed * Time.deltaTime);
     }
 
 #if UNITY_EDITOR

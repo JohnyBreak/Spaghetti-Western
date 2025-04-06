@@ -130,7 +130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 0}
+    m_ConstrainedObject: {fileID: 8739496909705545778}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -1788,7 +1788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8739496909428092484
 Transform:
   m_ObjectHideFlags: 0
@@ -4232,7 +4232,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8739496910265064463
 Transform:
   m_ObjectHideFlags: 0
@@ -6810,7 +6810,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8739496910967023781}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 0, z: 0.613}
+  m_LocalPosition: {x: -0.301, y: -0, z: 0.536}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7180,6 +7180,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8739496909705545778}
     m_Modifications:
+    - target: {fileID: 4546053502413662926, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502413662926, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502413662926, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502413662926, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
     - target: {fileID: 4546053503784726464, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
       propertyPath: m_Name
       value: SM_Wep_Revolver_01 (1)
