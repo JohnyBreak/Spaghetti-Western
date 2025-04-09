@@ -9,6 +9,7 @@ public class PlayerInput : MonoBehaviour, IService
     public event System.Action<bool> ShiftEvent;
     public event System.Action<bool> ReloadEvent;
     public event System.Action<int> NumberPressEvent;
+    public event System.Action SpacePressEvent;
 
     private bool _aimPressed;
     private Vector3 _moveVector;
@@ -98,5 +99,11 @@ public class PlayerInput : MonoBehaviour, IService
         {
             NumberPressEvent?.Invoke(3);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SpacePressEvent?.Invoke();
+        }
+        
     }
 }

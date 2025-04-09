@@ -1,5 +1,36 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
+public class AnimationLayersNames
+{
+    public const string BaseLayer = "BaseLayer";
+    public const string Legs = "Legs";
+    public const string UpperBody = "UpperBody";
+    public const string RightHandAim = "RightHandAim";
+    public const string LeftHandAim = "LeftHandAim";
+    public const string Hands = "Hands";
+    public const string UpperBodyDamage = "UpperBodyDamage";
+
+    private static string[] _names = new string[] 
+    {   
+        BaseLayer,
+        Legs,
+        UpperBody,
+        RightHandAim,
+        LeftHandAim,
+        Hands,
+        UpperBodyDamage
+    };
+
+    public static int GetIndex(string name) 
+    {
+        var result = Array.FindIndex(_names, x => x.Contains(name));
+
+        return result;
+    }
+}
 
 public class PlayerLocomotion : UnitAnimation, IInitializable
 {
@@ -10,31 +41,40 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
     public enum Stance { None, Idle, Walk, Run }
     //private Vector2 _input;
     private PlayerInput _input;
-    private int _upperBoddyLayerIndex;
+    //private int _upperBoddyLayerIndex;
     private bool _isLocomotion = false;
     private bool _isSprinting = false;
     
-    private Coroutine _aimLayerWeightRoutine;
+    //private Coroutine _aimLayerWeightRoutine;
     private Coroutine _movementSpeedRoutine;
     private int _inputYHash = Animator.StringToHash("InputY");
     private int _locoInputXHash = Animator.StringToHash("LocoInputX");
     private int _locoInputYHash = Animator.StringToHash("LocoInputY");
     private int _locomotionHash = Animator.StringToHash("Locomotion");
     private int _isSprintingHash = Animator.StringToHash("IsSprinting");
+    private int _forwardJumpHash = Animator.StringToHash("JumpForward");
+    public int ForwardJumpHash => _forwardJumpHash;
+
+    private Dictionary<int, Coroutine> _layersCoroutinesMap = new();
 
     public void Init()
     {
-        _input = ServiceLocator.Current.Get<PlayerInput>();
+            _input = ServiceLocator.Current.Get<PlayerInput>();
         //_input.RMBEvent += OnAim;
         _input.ShiftEvent += OnSprint;
     }
 
     void Awake()
     {
-        _upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
+        //_upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
         _battleStateController.BattleStateChangedEvent += OnAim;
         
         //_animator = GetComponent<Animator>();
+    }
+
+    public void CrossFade(int stateNameHash, int layer = 0) 
+    {
+        _animator.CrossFade(stateNameHash, 0.1f, layer);
     }
 
     private void OnDestroy()
@@ -48,7 +88,10 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
         var isLocomotion = (state != BattleState.Regular);
         _animator.SetBool(_locomotionHash, isLocomotion); 
         _isLocomotion = isLocomotion;
-        UpdateLayer((isLocomotion) ? _aimWeight : 0);
+        var value = (isLocomotion) ? _aimWeight : 0;
+        UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.UpperBody), value);
+        //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.RightHandAim), value);
+        //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.LeftHandAim), value);
     }
 
     private void OnSprint(bool isSprinting) 
@@ -64,31 +107,31 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
         _isSprinting = isSprinting;
     }
 
-    private void UpdateLayer(float end)
+    private void UpdateLayer(int layer, float end)
     {
-        if (_aimLayerWeightRoutine != null)
+        if (_layersCoroutinesMap.ContainsKey(layer))
         {
-            StopCoroutine(_aimLayerWeightRoutine);
-            _aimLayerWeightRoutine = null;
+            StopCoroutine(_layersCoroutinesMap[layer]);
+            _layersCoroutinesMap.Remove(layer);
         }
-        _aimLayerWeightRoutine = StartCoroutine(SmoothLayer(end));
+        _layersCoroutinesMap[layer] = StartCoroutine(SmoothLayer(layer, end));
     }
 
-    private IEnumerator SmoothLayer(float end)
+    private IEnumerator SmoothLayer(int layer, float end)
     {
         float elapsedTime = 0;
         float waitTime = 0.2f;
         while (elapsedTime <= waitTime)
         {
-            float start = _animator.GetLayerWeight(_upperBoddyLayerIndex);
-            _animator.SetLayerWeight(_upperBoddyLayerIndex, start);
+            float start = _animator.GetLayerWeight(layer);
+            _animator.SetLayerWeight(layer, start);
 
             elapsedTime += Time.deltaTime;
 
             yield return null;
         }
 
-        _animator.SetLayerWeight(_upperBoddyLayerIndex, end);
+        _animator.SetLayerWeight(layer, end);
     }
 
     public void SetMovementAnimation(float currentMovement) 

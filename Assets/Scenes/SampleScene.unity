@@ -583,6 +583,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 817834365807798100, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: _lookPointTransform
+      value: 
+      objectReference: {fileID: 4418924563550399417}
+    - target: {fileID: 817834366163895801, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: _lookPointTransform
+      value: 
+      objectReference: {fileID: 4418924563550399417}
     - target: {fileID: 1162978284259035411, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: _camera
       value: 
@@ -591,6 +599,14 @@ PrefabInstance:
       propertyPath: _lookPointTransform
       value: 
       objectReference: {fileID: 4418924563550399417}
+    - target: {fileID: 4546053502406086425, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 708487886}
+    - target: {fileID: 4546053502854442420, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 708487886}
     - target: {fileID: 5550604852121128897, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: _lookPointTransform
       value: 
@@ -611,7 +627,15 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 433564913}
+    - target: {fileID: 8739496909813732530, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 433564913}
     - target: {fileID: 8739496910265064464, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 433564913}
+    - target: {fileID: 8739496910419197155, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 433564913}
