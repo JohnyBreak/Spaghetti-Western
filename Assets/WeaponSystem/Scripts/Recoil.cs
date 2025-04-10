@@ -1,9 +1,8 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+using WeaponSystem;
 using UnityEngine;
 
-[RequireComponent (typeof(BaseGun))]
+[RequireComponent (typeof(BaseWeapon))]
 [RequireComponent(typeof(CinemachineImpulseSource))]
 public class Recoil : MonoBehaviour
 {
@@ -12,14 +11,14 @@ public class Recoil : MonoBehaviour
     [SerializeField] private float _verticalRecoil = 10f;
     [SerializeField] private float _duration = 0.1f;
 
-    private BaseGun _gun;
+    private BaseWeapon _gun;
     private Transform _mainCameraTransform;
     private CinemachinePOV _cameraPOV;
     private float _time;
     
     void Awake()
     {
-        _gun = GetComponent<BaseGun>();
+        _gun = GetComponent<BaseWeapon>();
         _gun.ShotEvent += GenerateRecoil;
         if(_cameraShake == null) _cameraShake = GetComponent<CinemachineImpulseSource>();
         _mainCameraTransform = Camera.main.transform;

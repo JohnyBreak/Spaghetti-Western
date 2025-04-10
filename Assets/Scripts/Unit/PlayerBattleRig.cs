@@ -1,4 +1,5 @@
 using UnityEngine;
+using WeaponSystem;
 
 public class PlayerBattleRig : MonoBehaviour
 {
