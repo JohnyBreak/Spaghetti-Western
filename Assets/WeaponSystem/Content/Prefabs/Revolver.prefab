@@ -442,7 +442,7 @@ GameObject:
   - component: {fileID: 4546053503784726469}
   - component: {fileID: 817834365413860646}
   m_Layer: 2
-  m_Name: SM_Wep_Revolver_01
+  m_Name: Revolver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

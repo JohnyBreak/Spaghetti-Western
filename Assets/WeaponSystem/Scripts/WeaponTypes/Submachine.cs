@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
@@ -8,6 +9,22 @@ namespace WeaponSystem
         private bool _isShooting = false;
         private IEnumerator _shootingRoutine;
         public override int Type => WeaponTypes.OneHand;
+
+        public override void Init()
+        {
+            var components = GetComponentsInChildren<IInitializable>();
+
+            foreach (var component in components)
+            {
+                if (component == (IInitializable)this)
+                {
+                    continue;
+                }
+                component.Init();
+            }
+
+            _lookPointTransform = ServiceLocator.Current.Get<CamerasHolder>().ShootTarget.transform;
+        }
 
         public override void TryShoot()
         {

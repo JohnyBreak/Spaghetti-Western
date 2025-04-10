@@ -7,10 +7,13 @@ namespace WeaponSystem
     {
         [SerializeField] private BaseWeapon _weapon;
         [SerializeField] private Vector3 _offset;
-        [SerializeField] private Vector3 _rotation;
+        [SerializeField] private int _type;
+        [SerializeField, Range(1,2)] private int _amount;
 
         public BaseWeapon Prefab => _weapon;
         public Vector3 Offset => _offset;
-        public Vector3 Rotation => _rotation;
+
+        public int Type => _type;
+        public int Amount => _amount;
     }
 }

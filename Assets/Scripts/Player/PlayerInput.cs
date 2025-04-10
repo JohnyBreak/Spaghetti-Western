@@ -10,6 +10,7 @@ public class PlayerInput : MonoBehaviour, IService
     public event System.Action<bool> ReloadEvent;
     public event System.Action<int> NumberPressEvent;
     public event System.Action SpacePressEvent;
+    public event System.Action<int> MouseScrollEvent;
 
     private bool _aimPressed;
     private Vector3 _moveVector;
@@ -39,7 +40,7 @@ public class PlayerInput : MonoBehaviour, IService
         _moveVector = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         _isMovementPressed = _moveVector != Vector3.zero;
 
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             LMBPressEvent?.Invoke();
             LMBEvent?.Invoke(true);
@@ -105,5 +106,14 @@ public class PlayerInput : MonoBehaviour, IService
             SpacePressEvent?.Invoke();
         }
         
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            MouseScrollEvent?.Invoke(1);
+        }
+
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            MouseScrollEvent?.Invoke(-1);
+        }
     }
 }

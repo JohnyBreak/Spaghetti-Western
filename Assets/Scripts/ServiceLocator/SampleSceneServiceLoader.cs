@@ -16,6 +16,7 @@ public class SampleSceneServiceLoader : MonoBehaviour
 
     private void Register() 
     {
+
         ServiceLocator.Current.Register(_camerasHolder);
         ServiceLocator.Current.Register(_playerInput);
     }

@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8cef19946ea7d4e9aa12cf056528ea, type: 3}
   m_Name: WeaponLibrary
   m_EditorClassIdentifier: 
-  _info: {fileID: 11400000, guid: 0f230be1e97f3c64380930ab652d5858, type: 2}
+  _infos:
+  - {fileID: 11400000, guid: 0f230be1e97f3c64380930ab652d5858, type: 2}
+  - {fileID: 11400000, guid: 446e3bcadf7e3954c8d610260b2e35b8, type: 2}
+  - {fileID: 11400000, guid: f9626f63ac6a83041ab4710f75a4ed02, type: 2}

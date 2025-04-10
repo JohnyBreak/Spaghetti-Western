@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
@@ -9,6 +10,22 @@ namespace WeaponSystem
         [SerializeField] private int _bulletsInShell = 10;
 
         public override int Type => WeaponTypes.TwoHand;
+
+        public override void Init()
+        {
+            var components = GetComponentsInChildren<IInitializable>();
+
+            foreach (var component in components)
+            {
+                if (component == (IInitializable)this)
+                {
+                    continue;
+                }
+                component.Init();
+            }
+
+            _lookPointTransform = ServiceLocator.Current.Get<CamerasHolder>().ShootTarget.transform;
+        }
 
         public override void TryShoot()
         {
@@ -27,6 +44,7 @@ namespace WeaponSystem
         {
             ShootShell();
             _bulletCountInMagazine--;
+            ShotEvent?.Invoke();
             _canShoot = false;
 
             if (_pauseRoutine == null)
@@ -53,7 +71,8 @@ namespace WeaponSystem
         {
             for (int i = 0; i < _bulletsInShell; i++)
             {
-                Vector3 targetPos = _shootPoint.position + _shootPoint.forward * 10;
+                Vector3 direction = _lookPointTransform.position - _shootPoint.position;
+                Vector3 targetPos = _shootPoint.position + direction.normalized * 10;
 
                 targetPos = new Vector3(
                 targetPos.x + Random.Range(-_inaccuracyDistance, _inaccuracyDistance),

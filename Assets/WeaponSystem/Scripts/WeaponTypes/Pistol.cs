@@ -1,11 +1,28 @@
 using System.Collections;
 using UnityEngine;
+using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
     public class Pistol : BaseWeapon
     {
         public override int Type => WeaponTypes.OneHand;
+
+        public override void Init()
+        {
+            var components = GetComponentsInChildren<IInitializable>();
+
+            foreach (var component in components)
+            {
+                if (component == (IInitializable)this)
+                {
+                    continue;
+                }
+                component.Init();
+            }
+
+            _lookPointTransform = ServiceLocator.Current.Get<CamerasHolder>().ShootTarget.transform;
+        }
 
         public override void TryShoot()
         {
@@ -28,6 +45,7 @@ namespace WeaponSystem
             b.transform.LookAt(_lookPointTransform.position);
 
             _bulletCountInMagazine--;
+            ShotEvent?.Invoke();
             _canShoot = false;
 
             if (_pauseRoutine == null)

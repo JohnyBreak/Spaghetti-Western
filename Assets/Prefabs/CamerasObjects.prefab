@@ -945,6 +945,8 @@ MonoBehaviour:
   _regularCamera: {fileID: 4418924563112509810}
   _readyCamera: {fileID: 4418924563096280605}
   _aimCamera: {fileID: 4418924563558199786}
+  _headAimTarget: {fileID: 4418924563933218632}
+  _shootTarget: {fileID: 3834945888408141179}
 --- !u!1 &4418924563933218632
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
@@ -11,8 +12,20 @@ namespace WeaponSystem
         private WaitForSeconds _cockWait;
         public override int Type => WeaponTypes.OneHand;
 
-        private void Awake()
+        public override void Init()
         {
+            var components = GetComponentsInChildren<IInitializable>();
+
+            foreach (var component in components)
+            {
+                if (component == (IInitializable)this)
+                {
+                    continue;
+                }
+                component.Init();
+            }
+
+            _lookPointTransform = ServiceLocator.Current.Get<CamerasHolder>().ShootTarget.transform;
             _cockWait = new WaitForSeconds(_cockTime);
         }
 

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43f77d6d5a960af44b2ba1d70a82fa9f, type: 3}
-  m_Name: RevolverInfo
+  m_Name: SawedOffShotgunInfo
   m_EditorClassIdentifier: 
-  _weapon: {fileID: 817834365413860646, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+  _weapon: {fileID: 8800813759953847586, guid: 52c4a7ee9da1cc5478369ccab18db42d, type: 3}
   _offset: {x: 0.09, y: 0, z: -0.05}
   _type: 1
-  _amount: 2
+  _amount: 1

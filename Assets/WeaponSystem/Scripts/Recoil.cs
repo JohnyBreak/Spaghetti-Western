@@ -4,10 +4,10 @@ using UnityEngine;
 
 [RequireComponent (typeof(BaseWeapon))]
 [RequireComponent(typeof(CinemachineImpulseSource))]
-public class Recoil : MonoBehaviour
+public class Recoil : MonoBehaviour, IInitializable
 {
-    [SerializeField] private Cinemachine.CinemachineVirtualCamera _camera;
-    [SerializeField] private Cinemachine.CinemachineImpulseSource _cameraShake;
+    //[SerializeField] private CinemachineVirtualCamera _camera;
+    [SerializeField] private CinemachineImpulseSource _cameraShake;
     [SerializeField] private float _verticalRecoil = 10f;
     [SerializeField] private float _duration = 0.1f;
 
@@ -16,13 +16,17 @@ public class Recoil : MonoBehaviour
     private CinemachinePOV _cameraPOV;
     private float _time;
     
-    void Awake()
+    public void Init()
     {
         _gun = GetComponent<BaseWeapon>();
         _gun.ShotEvent += GenerateRecoil;
         if(_cameraShake == null) _cameraShake = GetComponent<CinemachineImpulseSource>();
         _mainCameraTransform = Camera.main.transform;
-        _cameraPOV = _camera.GetCinemachineComponent<CinemachinePOV>();
+
+        _cameraPOV = ServiceLocator.Current
+            .Get<CamerasHolder>().RegularCamera
+            .GetComponent<CinemachineVirtualCamera>()
+            .GetCinemachineComponent<CinemachinePOV>();
     }
 
     private void OnDestroy()

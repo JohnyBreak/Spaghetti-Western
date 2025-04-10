@@ -5,8 +5,8 @@ namespace WeaponSystem
     [CreateAssetMenu(fileName = "WeaponLibrary", menuName = "GunConfigs/WeaponLibrary")]
     public class WeaponLibrary : ScriptableObject
     {
-        [SerializeField] private WeaponInfo _info;
+        [SerializeField] private WeaponInfo[] _infos;
 
-        public WeaponInfo Info => _info;
+        public WeaponInfo[] Infos => _infos;
     }
 }

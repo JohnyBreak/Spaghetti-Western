@@ -6,12 +6,12 @@ namespace WeaponSystem
 {
     public class WeaponTypes
     {
-        public const int OneHand = 0;
-        public const int TwoHand = 1;
-        public const int OneHandMelee = 2;
+        public const int OneHandMelee = 0;
+        public const int OneHand = 1;
+        public const int TwoHand = 2;
     }
 
-    public abstract class BaseWeapon : MonoBehaviour, IWeapon
+    public abstract class BaseWeapon : MonoBehaviour, IWeapon, IInitializable
     {
         public Action ShotEvent;
         [SerializeField] protected int _maxBulletsPerMagazine;
@@ -29,6 +29,8 @@ namespace WeaponSystem
         public abstract void TryShoot();
 
         public abstract void Reload();
+
+        public abstract void Init();
 
         //protected void Update()
         //{
