@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43f77d6d5a960af44b2ba1d70a82fa9f, type: 3}
+  m_Name: RevolverInfo
+  m_EditorClassIdentifier: 
+  _weapon: {fileID: 817834365413860646, guid: dc0f7928d1b78c744b7fdf48194a15fa, type: 3}
+  _offset: {x: 0.09, y: 0, z: -0.05}
+  _rotation: {x: -180, y: -90, z: 90}

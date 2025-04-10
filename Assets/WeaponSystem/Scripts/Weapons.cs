@@ -6,16 +6,16 @@ namespace WeaponSystem
 {
     public class Weapons : MonoBehaviour, IInitializable
     {
-        public Action WeaponsChanged;
-        private PlayerInput _input;
+        [SerializeField] private WeaponLibrary _library;
         [SerializeField] private UnitBattleStateController _battleState;
         [SerializeField] private GameObject _holder1;
         [SerializeField] private GameObject _holder2;
 
+        public Action WeaponsChanged;
+        private PlayerInput _input;
+        
         private BaseWeapon _pistol1;
         private BaseWeapon _pistol2;
-
-        private BaseWeapon[] _guns;
 
         private List<BaseWeapon> _activeGuns = new List<BaseWeapon>();
 
@@ -29,12 +29,11 @@ namespace WeaponSystem
             _input.LMBReleaseEvent += OnLMBRelease;
             _input.ReloadEvent += OnReload;
             _input.NumberPressEvent += OnNumberPress;
-        }
 
-        private void Awake()
-        {
-            _pistol1 = _holder1.GetComponentInChildren<BaseWeapon>();
-            _pistol2 = _holder2.GetComponentInChildren<BaseWeapon>();
+            
+            _pistol1 = Instantiate(_library.Info.Prefab, _holder1.transform);
+            _pistol2 = Instantiate(_library.Info.Prefab, _holder2.transform);
+
         }
 
         private void OnDestroy()

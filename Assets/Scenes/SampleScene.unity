@@ -603,6 +603,46 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 708487886}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546053502406086430, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4546053502854442420, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: _camera
       value: 
