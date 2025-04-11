@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class AnimationLayersNames
 {
@@ -32,10 +33,10 @@ public class AnimationLayersNames
     }
 }
 
-public class PlayerLocomotion : UnitAnimation, IInitializable
+public class PlayerAnimation : UnitAnimation, IInitializable
 {
     [SerializeField] private float _smoothBlend = 0.1f;
-    [SerializeField, Min(0.01f)] private float _aimWeight = 1f;
+    //[SerializeField, Min(0.01f)] private float _aimWeight = 1f;
     [SerializeField] private UnitBattleStateController _battleStateController;
 
     public enum Stance { None, Idle, Walk, Run }
@@ -67,7 +68,7 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
     void Awake()
     {
         //_upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
-        _battleStateController.BattleStateChangedEvent += OnAim;
+        //_battleStateController.BattleStateChangedEvent += OnAim;
         
         //_animator = GetComponent<Animator>();
     }
@@ -80,19 +81,19 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
     private void OnDestroy()
     {
         //_input.RMBEvent -= OnAim;
-        _battleStateController.BattleStateChangedEvent -= OnAim;
+        //_battleStateController.BattleStateChangedEvent -= OnAim;
     }
 
-    private void OnAim(int state) 
-    {
-        var isLocomotion = (state != BattleState.Regular);
-        _animator.SetBool(_locomotionHash, isLocomotion); 
-        _isLocomotion = isLocomotion;
-        var value = (isLocomotion) ? _aimWeight : 0;
-        UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.UpperBody), value);
-        //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.RightHandAim), value);
-        //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.LeftHandAim), value);
-    }
+    //private void OnAim(int state) 
+    //{
+    //    var isLocomotion = (state != BattleState.Regular);
+    //    _animator.SetBool(_locomotionHash, isLocomotion); 
+    //    _isLocomotion = isLocomotion;
+    //    var value = (isLocomotion) ? _aimWeight : 0;
+    //    UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.UpperBody), value);
+    //    //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.RightHandAim), value);
+    //    //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.LeftHandAim), value);
+    //}
 
     private void OnSprint(bool isSprinting) 
     {
@@ -120,11 +121,13 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
     private IEnumerator SmoothLayer(int layer, float end)
     {
         float elapsedTime = 0;
-        float waitTime = 0.2f;
-        while (elapsedTime <= waitTime)
+        //float waitTime = 0.2f;
+        while (elapsedTime <= _smoothBlend)
         {
             float start = _animator.GetLayerWeight(layer);
-            _animator.SetLayerWeight(layer, start);
+            var weight = Mathf.Lerp(start, end, elapsedTime);
+
+            _animator.SetLayerWeight(layer, weight);
 
             elapsedTime += Time.deltaTime;
 
@@ -201,5 +204,10 @@ public class PlayerLocomotion : UnitAnimation, IInitializable
                 _animator.SetFloat(_inputYHash, (_isSprinting) ? 1 : 0.5f, _smoothBlend, Time.deltaTime);
             }
         }
+    }
+
+    internal void SetLayerWeight(int layer, int weight)
+    {
+        UpdateLayer(layer, weight);
     }
 }

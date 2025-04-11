@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour, IInitializable
 {
-    [SerializeField] private PlayerLocomotion _locomotion;
+    [SerializeField] private PlayerAnimation _locomotion;
     private PlayerInput _playerInput;
 
     public void Init()

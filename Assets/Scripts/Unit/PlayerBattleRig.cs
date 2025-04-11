@@ -3,6 +3,7 @@ using WeaponSystem;
 
 public class PlayerBattleRig : MonoBehaviour
 {
+    [SerializeField] private PlayerAnimation _animation;
     [SerializeField] private UnitRig _rig;
     [SerializeField] private UnitBattleStateController _battleState;
     [SerializeField] private Weapons _weapons;
@@ -19,6 +20,7 @@ public class PlayerBattleRig : MonoBehaviour
         _battleState.BattleStateChangedEvent -= OnBattleStateChanged;
     }
 
+
     private void OnWeaponUpdate() 
     {
         OnBattleStateChanged(_battleState.CurrentState);
@@ -30,16 +32,8 @@ public class PlayerBattleRig : MonoBehaviour
         {
             case BattleState.Regular:
                 _rig.ToggleSpineRig(false);
-                //if (!_weapons.HasActiveGun) break;
-                
                 ToggleRightHand(false);
-
-                //if (_weapons.TwoHands)
-                {
-
-                    ToggleLeftHand(false);
-                }
-
+                ToggleLeftHand(false);
                 break;
             case BattleState.Ready:
 
@@ -80,15 +74,17 @@ public class PlayerBattleRig : MonoBehaviour
 
     private void ToggleRightHand(bool isActive) 
     {
-        _rig.ToggleRightHolsterRig(!isActive);
+        _animation.SetLayerWeight(3, (isActive) ? 1 : 0);
+        //_rig.ToggleRightHolsterRig(!isActive);
         _rig.ToggleRightIKRig(isActive);
-        _rig.ToggleRightAimRig(isActive);
+        //_rig.ToggleRightAimRig(isActive);
     }
 
     private void ToggleLeftHand(bool isActive) 
     {
-        _rig.ToggleLeftHolsterRig(!isActive);
+        _animation.SetLayerWeight(4, (isActive) ? 1 : 0);
+        //_rig.ToggleLeftHolsterRig(!isActive);
         _rig.ToggleLeftIKRig(isActive);
-        _rig.ToggleLeftAimRig(isActive);
+        //_rig.ToggleLeftAimRig(isActive);
     }
 }

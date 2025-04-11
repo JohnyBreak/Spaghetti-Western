@@ -11,7 +11,7 @@ public class PlayerRunState : PlayerBaseState//UnitBaseState<PlayerStateMachine.
 
     public override void EnterState()
     {
-        Ctx.PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
+        Ctx.PlayerAnimation.SetStance(PlayerAnimation.Stance.Run);
     }
 
     public override void ExitState()

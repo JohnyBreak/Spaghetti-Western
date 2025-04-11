@@ -21,7 +21,7 @@ public class PlayerStateMachine : UnitStateMachine
     private HealthSystem _healthSystem;
     private PlayerInput _playerInput;
     private MyCharacterController _controller;
-    private PlayerLocomotion _playerAnimation;
+    private PlayerAnimation _playerAnimation;
 
     private Vector2 _currentMovementInput;
     private Vector3 _currentMovement;
@@ -54,7 +54,7 @@ public class PlayerStateMachine : UnitStateMachine
 
     #region Properties
     // getters & setters
-    public PlayerLocomotion PlayerAnimation => _playerAnimation;
+    public PlayerAnimation PlayerAnimation => _playerAnimation;
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public int MaxJumpCount { get { return _maxJumpCount; } }
     public int CurrentJumpCount { get { return _currentJumpCount; } set { _currentJumpCount = value; } }

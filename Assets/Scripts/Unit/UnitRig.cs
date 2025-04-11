@@ -6,12 +6,12 @@ public class UnitRig : MonoBehaviour
 {
     [SerializeField] private Rig _spineRig;
 
-    [SerializeField] private Rig _rightHandHolsterRig;
-    [SerializeField] private Rig _rightHandAimRig;
+    //[SerializeField] private Rig _rightHandHolsterRig;
+    //[SerializeField] private Rig _rightHandAimRig;
     [SerializeField] private Rig _rightHandIKRig;
 
-    [SerializeField] private Rig _leftHandHolsterRig;
-    [SerializeField] private Rig _leftHandAimRig;
+    //[SerializeField] private Rig _leftHandHolsterRig;
+    //[SerializeField] private Rig _leftHandAimRig;
     [SerializeField] private Rig _leftHandIKRig;
 
     private Coroutine _spineRigWeightRoutine;
@@ -31,12 +31,12 @@ public class UnitRig : MonoBehaviour
         UpdateRig(value, _spineRigWeightRoutine, _spineRig);
     }
 
-    public void ToggleRightHolsterRig(bool enable)
-    {
-        float value = enable ? 1 : 0;
+    //public void ToggleRightHolsterRig(bool enable)
+    //{
+    //    float value = enable ? 1 : 0;
 
-        UpdateRig(value, _rightHandHolsterRigWeightRoutine, _rightHandHolsterRig);
-    }
+    //    UpdateRig(value, _rightHandHolsterRigWeightRoutine, _rightHandHolsterRig);
+    //}
 
     public void ToggleRightIKRig(bool enable)
     {
@@ -45,19 +45,19 @@ public class UnitRig : MonoBehaviour
         UpdateRig(value, _rightHandIKRigWeightRoutine, _rightHandIKRig);
     }
 
-    public void ToggleRightAimRig(bool enable)
-    {
-        float value = enable ? 1 : 0;
+    //public void ToggleRightAimRig(bool enable)
+    //{
+    //    float value = enable ? 1 : 0;
 
-        UpdateRig(value, _rightHandAimRigWeightRoutine, _rightHandAimRig);
-    }
+    //    UpdateRig(value, _rightHandAimRigWeightRoutine, _rightHandAimRig);
+    //}
 
-    public void ToggleLeftHolsterRig(bool enable)
-    {
-        float value = enable ? 1 : 0;
+    //public void ToggleLeftHolsterRig(bool enable)
+    //{
+    //    float value = enable ? 1 : 0;
 
-        UpdateRig(value, _leftHandHolsterRigWeightRoutine, _leftHandHolsterRig);
-    }
+    //    UpdateRig(value, _leftHandHolsterRigWeightRoutine, _leftHandHolsterRig);
+    //}
 
     public void ToggleLeftIKRig(bool enable)
     {
@@ -66,12 +66,12 @@ public class UnitRig : MonoBehaviour
         UpdateRig(value, _leftHandIKRigWeightRoutine, _leftHandIKRig);
     }
 
-    public void ToggleLeftAimRig(bool enable)
-    {
-        float value = enable ? 1 : 0;
+    //public void ToggleLeftAimRig(bool enable)
+    //{
+    //    float value = enable ? 1 : 0;
 
-        UpdateRig(value, _leftHandAimRigWeightRoutine, _leftHandAimRig);
-    }
+    //    UpdateRig(value, _leftHandAimRigWeightRoutine, _leftHandAimRig);
+    //}
 
     private void UpdateRig(float end, Coroutine routine, Rig rig)
     {

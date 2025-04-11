@@ -11,7 +11,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         Ctx.AppliedMovementX = 0;
         Ctx.AppliedMovementZ = 0;
-        Ctx.PlayerAnimation.SetStance(PlayerLocomotion.Stance.Run);
+        Ctx.PlayerAnimation.SetStance(PlayerAnimation.Stance.Run);
     }
 
     public override void ExitState()
