@@ -6,18 +6,26 @@ namespace WeaponSystem
     [Serializable]
     public class TwoHandedWeaponIKSettings
     {
-        [SerializeField] private Transform _rightHand;
-        [SerializeField] private Transform _leftHand;
-        [SerializeField] private Transform _rightElbowHint;
-        [SerializeField] private Transform _leftElbowHint;
+        [SerializeField] private TransformSettings _pivot;
+        [SerializeField] private TransformSettings _rightHand;
+        [SerializeField] private TransformSettings _leftHand;
+        [SerializeField] private TransformSettings _rightElbowHint;
+        [SerializeField] private TransformSettings _leftElbowHint;
         [SerializeField,Range(0,1)] private float _rightHandWeight;
         [SerializeField, Range(0,1)] private float _leftHandWeight;
 
-        public Transform RightHand => _rightHand;
-        public Transform LeftHand => _leftHand;
-        public Transform RightElbow => _rightElbowHint;
+        public TransformSettings Pivot => _pivot;
+        public TransformSettings RightHand => _rightHand;
+        public TransformSettings LeftHand => _leftHand;
+        public TransformSettings RightElbow => _rightElbowHint;
 
-        public Transform LeftElbow => _leftElbowHint;
+        public TransformSettings LeftElbow => _leftElbowHint;
+    }
 
+    [Serializable]
+    public class TransformSettings 
+    {
+        public Vector3 Position;
+        public Vector3 Rotation;
     }
 }

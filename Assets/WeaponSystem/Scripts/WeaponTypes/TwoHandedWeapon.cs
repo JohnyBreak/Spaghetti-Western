@@ -4,8 +4,10 @@ namespace WeaponSystem
 {
     public abstract class TwoHandedWeapon : BaseWeapon
     {
-        [SerializeField] protected TwoHandedWeaponIKSettings _iKSettings;
+        [SerializeField] protected TwoHandedWeaponIKSettings _idleIKSettings;
+        [SerializeField] protected TwoHandedWeaponIKSettings _aimIKSettings;
 
-        public TwoHandedWeaponIKSettings IKSettings => _iKSettings;
+        public TwoHandedWeaponIKSettings IdleIKSettings => _idleIKSettings;
+        public TwoHandedWeaponIKSettings AimIKSettings => _aimIKSettings;
     }
 }

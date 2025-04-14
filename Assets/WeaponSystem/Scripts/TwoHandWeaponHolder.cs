@@ -4,23 +4,29 @@ namespace WeaponSystem
 {
     public class TwoHandWeaponHolder : MonoBehaviour
     {
+        [SerializeField] private Transform _pivot;
         [SerializeField] private Transform _rightHand;
         [SerializeField] private Transform _leftHand;
         [SerializeField] private Transform _rightElbowHint;
         [SerializeField] private Transform _leftElbowHint;
 
-        public void SetWeapon(BaseWeapon weapon) 
+        public void SetWeapon(BaseWeapon weapon, bool aiming)
         {
-            if (weapon is TwoHandedWeapon twoHandedWeapon) 
+            if (weapon is TwoHandedWeapon twoHandedWeapon)
             {
-                _rightHand.position = twoHandedWeapon.IKSettings.RightHand.position;
-                _rightHand.rotation = twoHandedWeapon.IKSettings.RightHand.rotation;
+                var settings = aiming ? twoHandedWeapon.AimIKSettings : twoHandedWeapon.IdleIKSettings;
 
-                _leftHand.position = twoHandedWeapon.IKSettings.LeftHand.position;
-                _leftHand.rotation = twoHandedWeapon.IKSettings.LeftHand.rotation;
+                _pivot.localPosition = settings.Pivot.Position;
+                _pivot.localEulerAngles = settings.Pivot.Rotation;
 
-                _rightElbowHint.position = twoHandedWeapon.IKSettings.RightElbow.position;
-                _leftElbowHint.position = twoHandedWeapon.IKSettings.LeftElbow.position;
+                _rightHand.localPosition = settings.RightHand.Position;
+                _rightHand.localEulerAngles = settings.RightHand.Rotation;
+
+                _leftHand.localPosition = settings.LeftHand.Position;
+                _leftHand.localEulerAngles = settings.LeftHand.Rotation;
+
+                _rightElbowHint.localPosition = settings.RightElbow.Position;
+                _leftElbowHint.localEulerAngles = settings.LeftElbow.Rotation;
             }
         }
     }

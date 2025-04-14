@@ -32,10 +32,12 @@ public class PlayerBattleRig : MonoBehaviour
         switch (state)
         {
             case BattleState.Regular:
-                _rig.ToggleSpineRig(false);
+
                 ToggleRightHand(false);
                 ToggleLeftHand(false);
-
+                _rig.ToggleSpineRig(false);
+                _rig.ToggleTwoHandAimIKRig(false);
+                
                 if (_weapons.TwoHanded) 
                 {
                    var weapons = _weapons.GetCurrentWeapons();
@@ -44,7 +46,7 @@ public class PlayerBattleRig : MonoBehaviour
                         break;
                     }
 
-                    _twoHandWeaponHolder.SetWeapon(weapons[0]);
+                    _twoHandWeaponHolder.SetWeapon(weapons[0], false);
                 }
                 _rig.ToggleTwoHandIdleIKRig(_weapons.TwoHanded);
                 break;
@@ -65,20 +67,39 @@ public class PlayerBattleRig : MonoBehaviour
 
             //    break;
             case BattleState.Aim:
-
+                
                 _rig.ToggleSpineRig(true);
+                _rig.ToggleTwoHandIdleIKRig(false);
 
                 if (!_weapons.HasActiveGun)
                 {
                     ToggleRightHand(false);
                     ToggleLeftHand(false);
+                    _rig.ToggleTwoHandAimIKRig(false);
                     break;
                 }
 
-                ToggleRightHand(_weapons.HasActiveGun);
+                if (_weapons.TwoHanded)
+                {
+                    var weapons = _weapons.GetCurrentWeapons();
+                    if (weapons.Count < 1)
+                    {
+                        break;
+                    }
 
-                ToggleLeftHand(_weapons.TwoHands);
+                    _twoHandWeaponHolder.SetWeapon(weapons[0], true);
 
+                    _rig.ToggleTwoHandAimIKRig(true);
+                    break;
+                }
+                else 
+                {
+                    _rig.ToggleTwoHandAimIKRig(false);
+                    ToggleRightHand(_weapons.HasActiveGun);
+
+                    ToggleLeftHand(_weapons.TwoHands);
+                }
+                
                 break;
         }
 

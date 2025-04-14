@@ -8,6 +8,7 @@ public class UnitRig : MonoBehaviour
     [SerializeField] private Rig _rightHandIKRig;
     [SerializeField] private Rig _leftHandIKRig;
     [SerializeField] private Rig _twoHandedIdleIKRig;
+    [SerializeField] private Rig _twoHandedAimIKRig;
 
     private Coroutine _spineRigWeightRoutine;
 
@@ -19,6 +20,7 @@ public class UnitRig : MonoBehaviour
     private Coroutine _leftHandAimRigWeightRoutine;
     private Coroutine _leftHandIKRigWeightRoutine;
     private Coroutine _twoHandedIdleIKRigWeightRoutine;
+    private Coroutine _twoHandedAimIKRigWeightRoutine;
 
     public void ToggleSpineRig(bool enable) 
     {
@@ -46,6 +48,13 @@ public class UnitRig : MonoBehaviour
         float value = enable ? 1 : 0;
 
         UpdateRig(value, _twoHandedIdleIKRigWeightRoutine, _twoHandedIdleIKRig);
+    }
+
+    public void ToggleTwoHandAimIKRig(bool enable)
+    {
+        float value = enable ? 1 : 0;
+
+        UpdateRig(value, _twoHandedAimIKRigWeightRoutine, _twoHandedAimIKRig);
     }
 
     private void UpdateRig(float end, Coroutine routine, Rig rig)
