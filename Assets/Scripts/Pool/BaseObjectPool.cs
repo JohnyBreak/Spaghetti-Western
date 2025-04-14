@@ -53,8 +53,15 @@ public class BaseObjectPool<T> : MonoBehaviour where T : MonoBehaviour, IPoolabl
     public void BackObjectToPool(T obj)
     {
         if (obj == null) return;
-        obj.transform.parent = transform;
-        obj.gameObject.SetActive(false);
+        if(obj.transform.parent != transform) 
+        { 
+            obj.transform.parent = transform;
+        }
+
+        if (obj.gameObject.activeInHierarchy)
+        {
+            obj.gameObject.SetActive(false);
+        }
     }
 
     protected void OnDestroy() 

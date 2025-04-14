@@ -7,6 +7,7 @@ public class PlayerBattleRig : MonoBehaviour
     [SerializeField] private UnitRig _rig;
     [SerializeField] private UnitBattleStateController _battleState;
     [SerializeField] private Weapons _weapons;
+    [SerializeField] private TwoHandWeaponHolder _twoHandWeaponHolder;
 
     void Awake()
     {
@@ -34,6 +35,18 @@ public class PlayerBattleRig : MonoBehaviour
                 _rig.ToggleSpineRig(false);
                 ToggleRightHand(false);
                 ToggleLeftHand(false);
+
+                if (_weapons.TwoHanded) 
+                {
+                   var weapons = _weapons.GetCurrentWeapons();
+                    if (weapons.Count < 1) 
+                    {
+                        break;
+                    }
+
+                    _twoHandWeaponHolder.SetWeapon(weapons[0]);
+                }
+                _rig.ToggleTwoHandIdleIKRig(_weapons.TwoHanded);
                 break;
             case BattleState.Ready:
 

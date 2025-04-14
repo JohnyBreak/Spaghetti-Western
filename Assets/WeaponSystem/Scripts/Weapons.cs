@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows;
 
 namespace WeaponSystem
 {
@@ -9,8 +8,9 @@ namespace WeaponSystem
     {
         [SerializeField] private WeaponLibrary _library;
         [SerializeField] private UnitBattleStateController _battleState;
-        [SerializeField] private GameObject _holder1;
-        [SerializeField] private GameObject _holder2;
+        [SerializeField] private GameObject _holder1;//right hand
+        [SerializeField] private GameObject _holder2;// left hand
+        [SerializeField] private GameObject _holder3;//for two-handed weapons in rig
 
         public Action WeaponsChanged;
         private PlayerInput _input;
@@ -21,7 +21,7 @@ namespace WeaponSystem
         private GameObject[] _holders;
 
         private Dictionary<int, WeaponInfo> _infosMap = new();
-        private Dictionary<int, List<BaseWeapon>> _weaposMap = new();
+        private Dictionary<int, List<BaseWeapon>> _weaponsMap = new();
 
         private int _activeWeaponIndex = -1;
 
@@ -31,7 +31,7 @@ namespace WeaponSystem
         };
 
         public bool TwoHands => IsTwoHands();
-
+        public bool TwoHanded => IsTwoHanded();
         public bool HasActiveGun => _activeWeaponIndex >= 0;
 
         public void Init()
@@ -55,8 +55,18 @@ namespace WeaponSystem
             {
                 if (_infosMap.TryGetValue(index, out var info)) 
                 {
-                    _weaposMap[index] = new List<BaseWeapon>();
-                    
+                    _weaponsMap[index] = new List<BaseWeapon>();
+
+                    if (info.Type == WeaponTypes.TwoHand) 
+                    {
+                        var weapon = Instantiate(info.Prefab, _holder3.transform);
+                        weapon.Init();
+                        weapon.gameObject.SetActive(false);
+
+                        _weaponsMap[index].Add(weapon);
+                        continue;
+                    }
+
                     for (int i = 0; i < info.Amount; i++)
                     {
                         var weapon =  Instantiate(info.Prefab, _holders[i].transform);
@@ -64,7 +74,7 @@ namespace WeaponSystem
                         weapon.Init();
                         weapon.gameObject.SetActive(false);
                         
-                        _weaposMap[index].Add(weapon);
+                        _weaponsMap[index].Add(weapon);
                     }
                 }
             }
@@ -87,13 +97,31 @@ namespace WeaponSystem
             return -1;
         }
 
+        public List<BaseWeapon> GetCurrentWeapons() 
+        {
+            if (_activeWeaponIndex < 0)
+            {
+                return default;
+            }
+
+            if (_weaponsMap.TryGetValue(_activeWeaponIndex, out var weapons))
+            {
+                return weapons;
+            }
+            return default;
+        }
+
         private void OnDestroy()
         {
             _input.LMBPressEvent -= OnLMBPress;
             _input.LMBReleaseEvent -= OnLMBRelease;
             _input.ReloadEvent -= OnReload;
-            //_input.NumberPressEvent -= OnNumberPress;
             _input.MouseScrollEvent -= ScrollWeapon;
+        }
+
+        private bool IsTwoHanded()
+        {
+            return GetCurrentWeaponType() == WeaponTypes.TwoHand;
         }
 
         private bool IsTwoHands()
@@ -108,7 +136,7 @@ namespace WeaponSystem
 
         private void OnReload(bool obj)
         {
-            if (_weaposMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
+            if (_weaponsMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
             {
                 return;
             }
@@ -131,7 +159,7 @@ namespace WeaponSystem
                 return;
             }
 
-            if (_weaposMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
+            if (_weaponsMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
             {
                 return;
             }
@@ -147,7 +175,7 @@ namespace WeaponSystem
         {
             if (!HasActiveGun) return;
 
-            if (_weaposMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
+            if (_weaponsMap.TryGetValue(_activeWeaponIndex, out var weapons) == false)
             {
                 return;
             }
@@ -167,29 +195,26 @@ namespace WeaponSystem
             {
                 case 1:
                     SelectWeapon(0);
-                    //SetActiveWeapon(new BaseWeapon[] { _pistol1 });
                     break;
                 case 2:
                     SelectWeapon(1);
-                    //SetActiveWeapon(new BaseWeapon[] { _pistol1, _pistol2 });
                     break;
                 case 3:
                     SelectWeapon(2);
-                    //SetActiveWeapon(new BaseWeapon[] { });
                     break;
             }
         }
 
         private void SelectWeapon(int index) 
         {
-            if (_weaposMap.TryGetValue(index, out var weapons)) 
+            if (_weaponsMap.TryGetValue(index, out var weapons)) 
             {
                 foreach (var gun in weapons)
                 {
                     gun.gameObject.SetActive(true);
                 }
 
-                if (_weaposMap.TryGetValue(_activeWeaponIndex, out var oldWeapons))
+                if (_weaponsMap.TryGetValue(_activeWeaponIndex, out var oldWeapons))
                 {
                     foreach (var gun in oldWeapons)
                     {
@@ -198,6 +223,7 @@ namespace WeaponSystem
                 }
 
                 _activeWeaponIndex = index;
+                WeaponsChanged?.Invoke();
             }
         }
 
@@ -209,7 +235,7 @@ namespace WeaponSystem
                 case 1:
                     tempIndex = _activeWeaponIndex + 1;
 
-                    if (tempIndex >= _weaposMap.Count) 
+                    if (tempIndex >= _weaponsMap.Count) 
                     {
                         tempIndex = 0;
                     }
@@ -221,26 +247,11 @@ namespace WeaponSystem
 
                     if (tempIndex < 0)
                     {
-                        tempIndex = _weaposMap.Count - 1;
+                        tempIndex = _weaponsMap.Count - 1;
                     }
                     SelectWeapon(tempIndex);
                     break;
             }
         }
-
-        //private void SetActiveWeapon(BaseWeapon[] _guns)
-        //{
-        //    _activeGuns.Clear();
-        //    _activeGuns.Capacity = 2;
-
-        //    for (int i = 0; i < _guns.Length; i++)
-        //    {
-        //        if (_guns[i] == null) continue;
-
-        //        _activeGuns.Add(_guns[i]);
-        //    }
-
-        //    WeaponsChanged?.Invoke();
-        //}
     }
 }
