@@ -1,8 +1,5 @@
-
 using System;
 using UnityEngine;
-using UnityEngine.Events;
-//using Zenject;
 
 public class HealthSystem : MonoBehaviour, IDamageable, IHealable
 {
