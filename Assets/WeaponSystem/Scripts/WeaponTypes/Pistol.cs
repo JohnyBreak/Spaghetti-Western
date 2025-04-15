@@ -4,7 +4,7 @@ using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
-    public class Pistol : BaseWeapon
+    public class Pistol : OneHandedWeapon
     {
         public override int Type => WeaponTypes.OneHand;
 

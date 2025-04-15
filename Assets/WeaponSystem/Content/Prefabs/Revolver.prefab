@@ -478,7 +478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3059baad8827cd94fb5378adc5852ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
   _cameraShake: {fileID: 4546053503784726469}
   _verticalRecoil: 10
   _duration: 0.1
@@ -551,4 +550,21 @@ MonoBehaviour:
   _timeBetweenShots: 0.1
   _shootPoint: {fileID: 4546053502695265375}
   _lookPointTransform: {fileID: 0}
+  _pairs:
+  - _idleIKSettings:
+      _pivot:
+        Position: {x: 0.056, y: 0.023, z: -0.047}
+        Rotation: {x: 0, y: 90, z: -90}
+    _aimIKSettings:
+      _pivot:
+        Position: {x: 0.056, y: 0.023, z: -0.047}
+        Rotation: {x: 0, y: 90, z: -90}
+  - _idleIKSettings:
+      _pivot:
+        Position: {x: 0.056, y: -0.023, z: -0.047}
+        Rotation: {x: 0, y: 90, z: -90}
+    _aimIKSettings:
+      _pivot:
+        Position: {x: 0.056, y: -0.023, z: -0.047}
+        Rotation: {x: 0, y: 90, z: -90}
   _cockTime: 0.2

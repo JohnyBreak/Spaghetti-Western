@@ -10,7 +10,6 @@ namespace WeaponSystem
         [SerializeField] private UnitBattleStateController _battleState;
         [SerializeField] private GameObject _holder1;//right hand
         [SerializeField] private GameObject _holder2;// left hand
-        [SerializeField] private GameObject _holder3;//for two-handed weapons in rig
 
         public Action WeaponsChanged;
         private PlayerInput _input;
@@ -57,15 +56,15 @@ namespace WeaponSystem
                 {
                     _weaponsMap[index] = new List<BaseWeapon>();
 
-                    if (info.Type == WeaponTypes.TwoHand) 
-                    {
-                        var weapon = Instantiate(info.Prefab, _holder3.transform);
-                        weapon.Init();
-                        weapon.gameObject.SetActive(false);
+                    //if (info.Type == WeaponTypes.TwoHand) 
+                    //{
+                    //    var weapon = Instantiate(info.Prefab, _holders[0].transform);
+                    //    weapon.Init();
+                    //    weapon.gameObject.SetActive(false);
 
-                        _weaponsMap[index].Add(weapon);
-                        continue;
-                    }
+                    //    _weaponsMap[index].Add(weapon);
+                    //    continue;
+                    //}
 
                     for (int i = 0; i < info.Amount; i++)
                     {

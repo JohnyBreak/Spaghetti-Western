@@ -177,9 +177,9 @@ GameObject:
   - component: {fileID: 5345085749510385822}
   - component: {fileID: 5355969204476263604}
   - component: {fileID: 5364271863167828320}
-  - component: {fileID: 8800813759953847586}
   - component: {fileID: 7516265847295384065}
   - component: {fileID: 8472455583266782387}
+  - component: {fileID: 1280682732292487879}
   m_Layer: 0
   m_Name: SawedOffShotgun
   m_TagString: Untagged
@@ -256,24 +256,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8800813759953847586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5343131424520427534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 607e8c0c09204f14198390d1bbea8726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxBulletsPerMagazine: 2
-  _timeBetweenShots: 0.3
-  _shootPoint: {fileID: 1404829400143840157}
-  _lookPointTransform: {fileID: 0}
-  _inaccuracyDistance: 1
-  _bulletsInShell: 10
 --- !u!114 &7516265847295384065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,10 +321,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3059baad8827cd94fb5378adc5852ba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
   _cameraShake: {fileID: 7516265847295384065}
   _verticalRecoil: 10
   _duration: 0.1
+--- !u!114 &1280682732292487879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5343131424520427534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f522ba585f53a5c418c6e21c97f9399a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxBulletsPerMagazine: 2
+  _timeBetweenShots: 0.3
+  _shootPoint: {fileID: 1404829400143840157}
+  _lookPointTransform: {fileID: 0}
+  _pairs:
+  - _idleIKSettings:
+      _pivot:
+        Position: {x: 0.0683, y: 0.022, z: -0.0567}
+        Rotation: {x: 0, y: 90, z: -90}
+    _aimIKSettings:
+      _pivot:
+        Position: {x: 0.0683, y: 0.022, z: -0.0567}
+        Rotation: {x: 0, y: 90, z: -90}
+  - _idleIKSettings:
+      _pivot:
+        Position: {x: 0.0683, y: -0.022, z: -0.0567}
+        Rotation: {x: 0, y: 90, z: -90}
+    _aimIKSettings:
+      _pivot:
+        Position: {x: 0.0683, y: -0.022, z: -0.0567}
+        Rotation: {x: 0, y: 90, z: -90}
+  _inaccuracyDistance: 0.25
+  _bulletsInShell: 10
 --- !u!1 &5343326326039540402
 GameObject:
   m_ObjectHideFlags: 0

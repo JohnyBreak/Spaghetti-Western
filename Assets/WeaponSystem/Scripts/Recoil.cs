@@ -2,8 +2,6 @@ using Cinemachine;
 using WeaponSystem;
 using UnityEngine;
 
-[RequireComponent (typeof(BaseWeapon))]
-[RequireComponent(typeof(CinemachineImpulseSource))]
 public class Recoil : MonoBehaviour, IInitializable
 {
     //[SerializeField] private CinemachineVirtualCamera _camera;

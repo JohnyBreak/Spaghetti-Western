@@ -587,10 +587,6 @@ PrefabInstance:
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
       objectReference: {fileID: 433564913}
-    - target: {fileID: 6647019499489473265, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_Weight
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8739496909428092483, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
       value: 
@@ -618,10 +614,6 @@ PrefabInstance:
     - target: {fileID: 8739496910852613339, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: m_WarningMessage
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8739496910852613341, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
-      propertyPath: m_RigLayers.Array.size
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8739496910903106071, guid: 5aab9babcb339cb4f8994419f310140a, type: 3}
       propertyPath: m_Data.m_SourceObjects.m_Item0.transform
@@ -873,6 +865,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 15
+  _force: 20
   _mask:
     serializedVersion: 2
     m_Bits: 1664

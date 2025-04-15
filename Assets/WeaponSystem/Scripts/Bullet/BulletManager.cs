@@ -6,6 +6,7 @@ namespace WeaponSystem.Bullet
     public class BulletManager : MonoBehaviour
     {
         [SerializeField] private float _speed = 4;
+        [SerializeField] private float _force = 10f;
         [SerializeField] private LayerMask _mask;
         [SerializeField] private BulletDamageConfig _bulletDamageConfig;
         private Dictionary<int, int> _bulletDamage = new Dictionary<int, int>();
@@ -50,7 +51,7 @@ namespace WeaponSystem.Bullet
                     //HitBox hitBox;
                     if (hit.collider.TryGetComponent(out HitBox hitBox))
                     {
-                        hitBox.TakeDamage(_bulletDamage[_pool.PooledObjects[i].Type], 10f, hit, _pool.PooledObjects[i].transform.forward);
+                        hitBox.TakeDamage(_bulletDamage[_pool.PooledObjects[i].Type], _force, hit, _pool.PooledObjects[i].transform.forward);
                     }
 
                     _pool.BackObjectToPool(_pool.PooledObjects[i]);

@@ -7,7 +7,8 @@ public class PlayerBattleRig : MonoBehaviour
     [SerializeField] private UnitRig _rig;
     [SerializeField] private UnitBattleStateController _battleState;
     [SerializeField] private Weapons _weapons;
-    [SerializeField] private TwoHandWeaponHolder _twoHandWeaponHolder;
+    [SerializeField] private WeaponHolder _rightWeaponHolder;
+    [SerializeField] private WeaponHolder _leftWeaponHolder;
 
     void Awake()
     {
@@ -35,20 +36,35 @@ public class PlayerBattleRig : MonoBehaviour
 
                 ToggleRightHand(false);
                 ToggleLeftHand(false);
-                _rig.ToggleSpineRig(false);
-                _rig.ToggleTwoHandAimIKRig(false);
-                
-                if (_weapons.TwoHanded) 
+                _rig.ToggleRig(RigIndexes.Spine, false);
+                //_rig.ToggleTwoHandAimIKRig(false);
+
+                _rig.ToggleRig(RigIndexes.TwoHandedAim, false);
+                if (_weapons.TwoHanded)
                 {
-                   var weapons = _weapons.GetCurrentWeapons();
-                    if (weapons.Count < 1) 
+                    _rig.ToggleRig(RigIndexes.SingleHandedWeaponIdle, false, 0);
+                    if (_weapons.GetCurrentWeapons().Count < 1)
                     {
                         break;
                     }
 
-                    _twoHandWeaponHolder.SetWeapon(weapons[0], false);
+                    _rightWeaponHolder.SetWeapon(_weapons.GetCurrentWeapons()[0], false, 0);
                 }
-                _rig.ToggleTwoHandIdleIKRig(_weapons.TwoHanded);
+                else 
+                {
+                    _rig.ToggleRig(RigIndexes.SingleHandedWeaponIdle, true, 0);
+                    if (_weapons.HasActiveGun) 
+                    {
+                        _rightWeaponHolder.SetWeapon(_weapons.GetCurrentWeapons()[0], false, 0);
+                    }
+                    if (_weapons.TwoHands) 
+                    {
+                        _leftWeaponHolder.SetWeapon(_weapons.GetCurrentWeapons()[1], false, 1);
+                    }
+                }
+                //_rig.ToggleTwoHandIdleIKRig(_weapons.TwoHanded);
+
+                _rig.ToggleRig(RigIndexes.TwoHandedIdle, _weapons.TwoHanded);
                 break;
             case BattleState.Ready:
 
@@ -67,36 +83,48 @@ public class PlayerBattleRig : MonoBehaviour
 
             //    break;
             case BattleState.Aim:
-                
-                _rig.ToggleSpineRig(true);
-                _rig.ToggleTwoHandIdleIKRig(false);
 
+                _rig.ToggleRig(RigIndexes.Spine, true);
+                //_rig.ToggleTwoHandIdleIKRig(false);
+                
+                _rig.ToggleRig(RigIndexes.TwoHandedIdle, false);
                 if (!_weapons.HasActiveGun)
                 {
                     ToggleRightHand(false);
                     ToggleLeftHand(false);
-                    _rig.ToggleTwoHandAimIKRig(false);
+                    //_rig.ToggleTwoHandAimIKRig(false);
+
+                    _rig.ToggleRig(RigIndexes.TwoHandedAim, false);
                     break;
                 }
 
+                _rightWeaponHolder.SetWeapon(_weapons.GetCurrentWeapons()[0], true, 0);
+
+
                 if (_weapons.TwoHanded)
                 {
-                    var weapons = _weapons.GetCurrentWeapons();
-                    if (weapons.Count < 1)
+
+                    if (_weapons.GetCurrentWeapons().Count < 1)
                     {
                         break;
                     }
 
-                    _twoHandWeaponHolder.SetWeapon(weapons[0], true);
-
-                    _rig.ToggleTwoHandAimIKRig(true);
+                    //_rig.ToggleTwoHandAimIKRig(true);
+                    _rig.ToggleRig(RigIndexes.SingleHandedWeaponIdle, false, 0);
+                    _rig.ToggleRig(RigIndexes.TwoHandedAim, true);
                     break;
                 }
                 else 
                 {
-                    _rig.ToggleTwoHandAimIKRig(false);
+                    //_rig.ToggleTwoHandAimIKRig(false);
+                    _rig.ToggleRig(RigIndexes.SingleHandedWeaponIdle, true, 0);
+                    _rig.ToggleRig(RigIndexes.TwoHandedAim, false);
                     ToggleRightHand(_weapons.HasActiveGun);
 
+                    if (_weapons.TwoHands)
+                    {
+                        _leftWeaponHolder.SetWeapon(_weapons.GetCurrentWeapons()[1], true, 1);
+                    }
                     ToggleLeftHand(_weapons.TwoHands);
                 }
                 
@@ -110,7 +138,8 @@ public class PlayerBattleRig : MonoBehaviour
     {
         _animation.SetLayerWeight(3, (isActive) ? 1 : 0);
         //_rig.ToggleRightHolsterRig(!isActive);
-        _rig.ToggleRightIKRig(isActive);
+        //_rig.ToggleRightIKRig(isActive);
+        _rig.ToggleRig(RigIndexes.RightHand, isActive);
         //_rig.ToggleRightAimRig(isActive);
     }
 
@@ -118,7 +147,8 @@ public class PlayerBattleRig : MonoBehaviour
     {
         _animation.SetLayerWeight(4, (isActive) ? 1 : 0);
         //_rig.ToggleLeftHolsterRig(!isActive);
-        _rig.ToggleLeftIKRig(isActive);
+        //_rig.ToggleLeftIKRig(isActive);
+        _rig.ToggleRig(RigIndexes.LeftHand, isActive);
         //_rig.ToggleLeftAimRig(isActive);
     }
 }

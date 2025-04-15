@@ -4,7 +4,7 @@ using WeaponSystem.Bullet;
 
 namespace WeaponSystem
 {
-    public class Revolver : BaseWeapon
+    public class Revolver : OneHandedWeapon
     {
         [SerializeField] private float _cockTime = .2f;
         private bool _cockedTrigger = true;
