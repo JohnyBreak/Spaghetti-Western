@@ -1,16 +1,12 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RecoilTest : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] private Vector3 _position;
+    [SerializeField] private Vector3 _rotation;
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.J)) 
@@ -24,5 +20,14 @@ public class RecoilTest : MonoBehaviour
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = Vector3.zero;
 
+        var seq = DOTween.Sequence();
+
+        seq.Append(transform.DOLocalMove(_position, 0.1f).SetEase(Ease.InOutSine));
+        seq.Join(transform.DOLocalRotate(_rotation, 0.1f).SetEase(Ease.InOutSine));
+
+        seq.Append(transform.DOLocalMove(Vector3.zero, 0.2f).SetEase(Ease.InOutSine));
+        seq.Join(transform.DOLocalRotate(Vector3.zero, 0.2f).SetEase(Ease.InOutSine));
+
+        seq.Play();
     }
 }
