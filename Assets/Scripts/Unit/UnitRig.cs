@@ -79,7 +79,8 @@ public class UnitRig : MonoBehaviour
         {
             return;
         }
-
+        //test
+        duration = 0;
         UpdateRig(value, index, rig, duration);
     }
 

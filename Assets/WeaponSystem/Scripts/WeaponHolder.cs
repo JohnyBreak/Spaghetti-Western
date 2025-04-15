@@ -36,7 +36,7 @@ namespace WeaponSystem
                 _leftHand.localEulerAngles = settings.LeftHand.Rotation;
 
                 _rightElbowHint.localPosition = settings.RightElbow.Position;
-                _leftElbowHint.localEulerAngles = settings.LeftElbow.Rotation;
+                _leftElbowHint.localPosition = settings.LeftElbow.Position;
             }
         }
     }
