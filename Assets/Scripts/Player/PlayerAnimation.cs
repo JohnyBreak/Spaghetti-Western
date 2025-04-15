@@ -13,8 +13,8 @@ public class AnimationLayersNames
     public const string Hands = "Hands";
     public const string UpperBodyDamage = "UpperBodyDamage";
 
-    private static string[] _names = new string[] 
-    {   
+    private static string[] _names = new string[]
+    {
         BaseLayer,
         Legs,
         UpperBody,
@@ -24,7 +24,7 @@ public class AnimationLayersNames
         UpperBodyDamage
     };
 
-    public static int GetIndex(string name) 
+    public static int GetIndex(string name)
     {
         var result = Array.FindIndex(_names, x => x.Contains(name));
 
@@ -44,7 +44,7 @@ public class PlayerAnimation : UnitAnimation, IInitializable
     //private int _upperBoddyLayerIndex;
     private bool _isLocomotion = false;
     private bool _isSprinting = false;
-    
+
     //private Coroutine _aimLayerWeightRoutine;
     private Coroutine _movementSpeedRoutine;
     private int _inputYHash = Animator.StringToHash("InputY");
@@ -59,7 +59,7 @@ public class PlayerAnimation : UnitAnimation, IInitializable
 
     public void Init()
     {
-            _input = ServiceLocator.Current.Get<PlayerInput>();
+        _input = ServiceLocator.Current.Get<PlayerInput>();
         //_input.RMBEvent += OnAim;
         _input.ShiftEvent += OnSprint;
     }
@@ -68,11 +68,11 @@ public class PlayerAnimation : UnitAnimation, IInitializable
     {
         //_upperBoddyLayerIndex = _animator.GetLayerIndex("UpperBody");
         //_battleStateController.BattleStateChangedEvent += OnAim;
-        
+
         //_animator = GetComponent<Animator>();
     }
 
-    public void CrossFade(int stateNameHash, int layer = 0) 
+    public void CrossFade(int stateNameHash, int layer = 0)
     {
         _animator.CrossFade(stateNameHash, 0.1f, layer);
     }
@@ -94,7 +94,7 @@ public class PlayerAnimation : UnitAnimation, IInitializable
     //    //UpdateLayer(AnimationLayersNames.GetIndex(AnimationLayersNames.LeftHandAim), value);
     //}
 
-    private void OnSprint(bool isSprinting) 
+    private void OnSprint(bool isSprinting)
     {
         if (isSprinting)
         {
@@ -111,14 +111,20 @@ public class PlayerAnimation : UnitAnimation, IInitializable
     {
         if (_layersCoroutinesMap.ContainsKey(layer))
         {
-            StopCoroutine(_layersCoroutinesMap[layer]);
-            _layersCoroutinesMap.Remove(layer);
+            if (_layersCoroutinesMap[layer] != null)
+            {
+                StopCoroutine(_layersCoroutinesMap[layer]);
+                _layersCoroutinesMap.Remove(layer);
+            }
         }
         _layersCoroutinesMap[layer] = StartCoroutine(SmoothLayer(layer, end));
     }
 
     private IEnumerator SmoothLayer(int layer, float end)
     {
+        _animator.SetLayerWeight(layer, end);
+        yield break;
+
         float elapsedTime = 0;
         //float waitTime = 0.2f;
         while (elapsedTime <= _smoothBlend)
@@ -136,7 +142,7 @@ public class PlayerAnimation : UnitAnimation, IInitializable
         _animator.SetLayerWeight(layer, end);
     }
 
-    public void SetMovementAnimation(float currentMovement) 
+    public void SetMovementAnimation(float currentMovement)
     {
         _animator.SetFloat(_inputYHash, currentMovement, _smoothBlend, Time.deltaTime);
     }
